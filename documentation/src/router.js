@@ -16,10 +16,6 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/documentation'
-    },
-    {
-      path: '/documentation',
       component: Redoc
     }
   ]

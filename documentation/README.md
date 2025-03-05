@@ -1,4 +1,4 @@
-# OpenAPI Documentation
+# OpenAPI Documentation with Redoc and Vue.js
 
 ## Overview
 

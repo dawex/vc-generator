@@ -10,4 +10,4 @@ By treating documentation like a code project, this setup encourages modularity,
 
 ## Deployment to GitHub Pages
 
-[Visit Documentation hosted on GitHub pages](https://github.com/dawex/vc-generator/)
+[Visit Documentation hosted on GitHub pages](https://dawex.github.io/vc-generator/documentation)

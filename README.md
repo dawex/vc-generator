@@ -1,4 +1,7 @@
-# vc-generator
+# Validation Plugin - VC Generator
+
 VC Generator distribution for UPCAST European project.
 
-See readme in /documentation for OpenAPI specification.
+## OpenAPI documentation
+
+[Visit Documentation hosted on GitHub pages](https://dawex.github.io/vc-generator/documentation)

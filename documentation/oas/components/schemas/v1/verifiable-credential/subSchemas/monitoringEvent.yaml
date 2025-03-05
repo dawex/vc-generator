@@ -1,0 +1,46 @@
+type: object
+description: Monitoring Event.
+required:
+  - source
+  - timestamp
+  - metric
+  - value
+  - log
+properties:
+  source:
+    type: string
+    description: The name of the source component that emits the JSON object. Each component that implements the execution flow has a unique name.
+    example: 'transfer-plugin'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  timestamp:
+    type: string
+    format: date-time
+    description: The date/time when the credential was issued, in ISO 8601 date-time format.
+    example: "2025-02-26T13:28:09Z"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  metric:
+    type: string
+    description: The name of the metric that is reported.
+    example: 'action-start'
+    enum:
+      - action-start
+      - action-stop
+    x-oapi-codegen-extra-tags:
+      validate: 'required,oneof=action-start action-stop'
+  value:
+    type: string
+    description: The value of the metric that is reported, e.g., the name of the action that is started.
+    example: 'calculation of statistics'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  result:
+    type: object
+    description: Any result the metric may have produced. Results are application specific objects that are produced as a result of the completion of an action. Typically they are integer values with 0 indicating normal completion of execution and non-zero indicating completion that resulted in an error. The result of an action may be used for making decisions for following different branches of the workflow or handling errors that may have resulted from the execution of an action. The result filed has meaning for action-end metrics, for the rest its value is None.
+  log:
+    type: string
+    description: Log message that contains details of the monitored metric.
+    example: 'Root WebApplicationContext: initialization completed in 2758 ms'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'

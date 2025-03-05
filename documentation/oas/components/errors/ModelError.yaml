@@ -1,0 +1,6 @@
+description: A representation of an errorMessage
+type: object
+properties:
+  errorMessage:
+    type: string
+    description: error Message

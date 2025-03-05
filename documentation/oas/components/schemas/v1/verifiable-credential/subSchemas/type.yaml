@@ -1,0 +1,7 @@
+type: string
+description: VC Type
+enum:
+  - VerifiableCredential
+  - DataTransactionUsageCredential
+x-oapi-codegen-extra-tags:
+  validate: 'required,oneof=VerifiableCredential DataTransactionUsageCredential'

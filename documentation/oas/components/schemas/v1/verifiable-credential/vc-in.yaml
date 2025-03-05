@@ -1,0 +1,41 @@
+type: object
+description: VC model.
+required:
+  - '@context'
+  - id
+  - type
+  - credentialSubject
+properties:
+  '@context':
+    type: array
+    description: One or more JSON-LD contexts that allow interpreting the terms used. By default, every VC includes the base W3C Credentials context.
+    minItems: 1
+    items:
+      type: string
+      example: 'https://www.w3.org/2018/credentials/v1'
+      x-oapi-codegen-extra-tags:
+        validate: 'required,url'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  id:
+    type: string
+    description: A unique identifier for the credential.
+    example: 'urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  type:
+    type: array
+    description: |-
+      One or more types for the credential. It must include "VerifiableCredential" plus a specific type defining the nature of the credential :
+        - VerifiableCredential : define the core structure of the credential,
+        - DataTransactionUsageCredential : define the specific content of the credential subject.
+    minItems: 1
+    example: ['VerifiableCredential', 'DataTransactionUsageCredential']
+    items:
+      $ref: 'subSchemas/type.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  credentialSubject:
+    $ref: 'subSchemas/credentialSubject.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'

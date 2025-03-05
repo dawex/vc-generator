@@ -1,0 +1,18 @@
+type: object
+description: VC issuer.
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+    description: A unique identifier for the issuer.
+    example: 'urn:uuid:c56728f7-43b3-4d70-91fc-2b730fd4cd9e'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  name:
+    type: string
+    description: Name of the issuer.
+    example: 'Issuer Organization'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'

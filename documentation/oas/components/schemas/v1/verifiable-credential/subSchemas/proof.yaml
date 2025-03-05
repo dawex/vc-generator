@@ -1,0 +1,44 @@
+type: object
+description: VC Proof.
+required:
+  - created
+  - jws
+  - proofPurpose
+  - type
+  - verificationMethod
+properties:
+  created:
+    type: string
+    format: date-time
+    description: The creation date of the proof.
+    example: "2025-02-26T13:28:09Z"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  jws:
+    type: string
+    description: Encrypted JWS (JSON Web Signature).
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  proofPurpose:
+    type: string
+    description: Indicate "assertionMethod" which is the general case to say that the issuer ensures the authenticity of the claims (in accordance with the VC Data Model).
+    example: 'assertionMethod'
+    enum:
+      - assertionMethod
+    x-oapi-codegen-extra-tags:
+      validate: 'required,oneof=assertionMethod'
+  type:
+    type: string
+    description: We specify the type of key used to sign credential.
+    example: 'Ed25519Signature2018'
+    enum:
+      - Ed25519Signature2018
+    x-oapi-codegen-extra-tags:
+      validate: 'required,oneof=Ed25519Signature2018'
+  verificationMethod:
+    type: string
+    description: The identifier of the issuer's public key.
+    example: 'urn:uuid:c56728f7-43b3-4d70-91fc-2b730fd4cd9e#key'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'

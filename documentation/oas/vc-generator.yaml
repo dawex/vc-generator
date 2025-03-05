@@ -1,0 +1,42 @@
+openapi: '3.0.3'
+info:
+  title: 'VC Generator - API'
+  version: '1.0.0'
+  description: |-
+    VC Generator - API
+
+    We use the API Specification to describe each endpoint. The API self-description also contains type information to help you error-check your requests.
+
+    # Authentication
+
+    Bearer token - Auth is not provided here - could be a bearer token in production env. 
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  contact:
+    name: Developers Contact
+    email: developers@example.com
+  license:
+    name: 'private-license'
+    url: 'https://example.com/cgu'
+
+servers:
+  - url: 'https://example-test.com/v1'
+    description: API base url.
+
+paths:
+  '/healthcheck':
+    $ref: endpoints/healthcheck/healthcheck.yaml
+
+  # verifiable-credential
+  '/verifiable-credential/_sign':
+    $ref: endpoints/v1/verifiable-credential/verifiable-credential@_sign.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []

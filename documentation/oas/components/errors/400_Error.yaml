@@ -1,0 +1,7 @@
+description: Bad Request
+content:
+  application/json:
+    schema:
+      $ref: 'ModelError.yaml'
+    example:
+      errorMessage: Bad Request

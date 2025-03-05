@@ -1,0 +1,24 @@
+type: object
+description: VC signed model.
+required: 
+  - issuer
+  - issuanceDate
+  - proof
+allOf:
+  - $ref: vc-in.yaml
+  - properties:
+      issuer:
+        $ref: 'subSchemas/issuer.yaml'
+        x-oapi-codegen-extra-tags:
+          validate: 'required,dive'
+      issuanceDate:
+        type: string
+        format: date-time
+        description: The date/time when the credential was issued, in ISO 8601 date-time format.
+        example: "2025-02-26T13:28:09Z"
+        x-oapi-codegen-extra-tags:
+          validate: 'required'
+      proof:
+        $ref: 'subSchemas/proof.yaml'
+        x-oapi-codegen-extra-tags:
+          validate: 'required,dive'

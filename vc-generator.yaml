@@ -113,7 +113,7 @@ paths:
   /verifiable-credential/_sign:
     post:
       tags:
-        - Verifiable Credential
+        - Verifiable-Credential
       summary: Sign Verifiable Credential
       description: Sign one Verifiable Credential base on defined payload model.
       operationId: signVerifiableCredential
@@ -141,16 +141,16 @@ paths:
               --url https://example-test.com/v1/verifiable-credential/_sign \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential","DataTransactionUsageCredential"],"credentialSubject":{"contractId":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}'
+              --data '{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential","DataTransactionUsageCredential"],"credentialSubject":{"id":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}'
         - lang: Java + Unirest
           source: |-
             HttpResponse<String> response = Unirest.post("https://example-test.com/v1/verifiable-credential/_sign")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\",\"DataTransactionUsageCredential\"],\"credentialSubject\":{\"contractId\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}")
+              .body("{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\",\"DataTransactionUsageCredential\"],\"credentialSubject\":{\"id\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential/_sign\"\n\n\tpayload := strings.NewReader(\"{\\\"@context\\\":[\\\"https://www.w3.org/2018/credentials/v1\\\"],\\\"id\\\":\\\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\\\",\\\"type\\\":[\\\"VerifiableCredential\\\",\\\"DataTransactionUsageCredential\\\"],\\\"credentialSubject\\\":{\\\"contractId\\\":\\\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\\\",\\\"executionId\\\":\\\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\\\",\\\"monitoringEvents\\\":[{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"result\\\":{},\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}]}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential/_sign\"\n\n\tpayload := strings.NewReader(\"{\\\"@context\\\":[\\\"https://www.w3.org/2018/credentials/v1\\\"],\\\"id\\\":\\\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\\\",\\\"type\\\":[\\\"VerifiableCredential\\\",\\\"DataTransactionUsageCredential\\\"],\\\"credentialSubject\\\":{\\\"id\\\":\\\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\\\",\\\"executionId\\\":\\\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\\\",\\\"monitoringEvents\\\":[{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"result\\\":{},\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}]}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -159,7 +159,7 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential","DataTransactionUsageCredential"],"credentialSubject":{"contractId":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}');
+            $body->append('{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential","DataTransactionUsageCredential"],"credentialSubject":{"id":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}');
 
             $request->setRequestUrl('https://example-test.com/v1/verifiable-credential/_sign');
             $request->setRequestMethod('POST');
@@ -180,7 +180,7 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\",\"DataTransactionUsageCredential\"],\"credentialSubject\":{\"contractId\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}"
+            payload = "{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\",\"DataTransactionUsageCredential\"],\"credentialSubject\":{\"id\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -226,7 +226,7 @@ paths:
               id: 'urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e',
               type: ['VerifiableCredential', 'DataTransactionUsageCredential'],
               credentialSubject: {
-                contractId: 'urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69',
+                id: 'urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69',
                 executionId: 'urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb',
                 monitoringEvents: [
                   {
@@ -314,11 +314,11 @@ components:
       type: object
       description: VC subject.
       required:
-        - contractId
+        - id
         - executionId
         - monitoringEvents
       properties:
-        contractId:
+        id:
           type: string
           description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
           example: urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69

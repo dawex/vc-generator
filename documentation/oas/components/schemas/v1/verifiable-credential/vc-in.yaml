@@ -30,7 +30,7 @@ properties:
         - VerifiableCredential : define the core structure of the credential,
         - DataTransactionUsageCredential : define the specific content of the credential subject.
     minItems: 1
-    example: ['VerifiableCredential', 'DataTransactionUsageCredential']
+    example: ['VerifiableCredential']
     items:
       $ref: 'subSchemas/type.yaml'
     x-oapi-codegen-extra-tags:

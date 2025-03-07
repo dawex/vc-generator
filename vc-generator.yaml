@@ -366,7 +366,6 @@ components:
           description: |-
             One or more types for the credential. It must include "VerifiableCredential" plus a specific type defining the nature of the credential :
               - VerifiableCredential : define the core structure of the credential,
-              - DataTransactionUsageCredential : define the specific content of the credential subject.
           minItems: 1
           example:
             - VerifiableCredential

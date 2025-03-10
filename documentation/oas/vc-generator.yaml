@@ -9,7 +9,7 @@ info:
 
     # Authentication
 
-    Bearer token - Auth is not provided here - could be a bearer token in production env. 
+    Bearer token - Auth is NOT PROVIDED here - could be a bearer token in production env. 
 
     <!-- ReDoc-Inject: <security-definitions> -->
   contact:
@@ -26,8 +26,16 @@ servers:
 paths:
   '/healthcheck':
     $ref: endpoints/healthcheck/healthcheck.yaml
+  
+  # events
+  '/events':
+    $ref: endpoints/v1/events/events.yaml
 
   # verifiable-credential
+  '/verifiable-credential':
+    $ref: endpoints/v1/verifiable-credential/verifiable-credential.yaml
+  '/verifiable-credential/publicKey':
+    $ref: endpoints/v1/verifiable-credential/verifiable-credential@publicKey.yaml
   '/verifiable-credential/_sign':
     $ref: endpoints/v1/verifiable-credential/verifiable-credential@_sign.yaml
 

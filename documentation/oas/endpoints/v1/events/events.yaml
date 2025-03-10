@@ -1,0 +1,46 @@
+get:
+  tags:
+    - Dataset-Execution-Event
+  summary: Get Dataset Execution Events
+  description: Get all events associated to the couple contractId and executionId.
+  operationId: getEvents
+  parameters:
+    - $ref: '../../../components/parameters/query_conrtactId.yaml'
+    - $ref: '../../../components/parameters/query_executionId.yaml'
+  responses:
+    '200':
+      description: Successful operation.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../../components/schemas/v1/event/event.yaml'
+    '400':
+      $ref: '../../../components/errors/400_Error.yaml'
+    '500':
+      $ref: '../../../components/errors/500_Error.yaml'
+
+post:
+  tags:
+    - Dataset-Execution-Event
+  summary: Save Dataset Execution Event
+  description: Save incoming event from Dataset Execution.
+  operationId: saveEvent
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/v1/event/eventIn.yaml'
+  responses:
+    '200':
+      description: Successful operation.
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/v1/event/event.yaml'
+    '400':
+      $ref: '../../../components/errors/400_Error.yaml'
+    '500':
+      $ref: '../../../components/errors/500_Error.yaml'

@@ -1,24 +1,58 @@
 type: object
-description: VC signed model.
-required: 
+description: VC model.
+required:
+  - '@context'
+  - id
+  - type
+  - credentialSubject
   - issuer
   - issuanceDate
   - proof
-allOf:
-  - $ref: vc-in.yaml
-  - properties:
-      issuer:
-        $ref: 'subSchemas/issuer.yaml'
-        x-oapi-codegen-extra-tags:
-          validate: 'required,dive'
-      issuanceDate:
-        type: string
-        format: date-time
-        description: The date/time when the credential was issued, in ISO 8601 date-time format.
-        example: "2025-02-26T13:28:09Z"
-        x-oapi-codegen-extra-tags:
-          validate: 'required'
-      proof:
-        $ref: 'subSchemas/proof.yaml'
-        x-oapi-codegen-extra-tags:
-          validate: 'required,dive'
+properties:
+  '@context':
+    type: array
+    description: One or more JSON-LD contexts that allow interpreting the terms used. By default, every VC includes the base W3C Credentials context.
+    minItems: 1
+    items:
+      type: string
+      example: 'https://www.w3.org/2018/credentials/v1'
+      x-oapi-codegen-extra-tags:
+        validate: 'required,url'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  id:
+    type: string
+    description: A unique identifier for the credential.
+    example: 'urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  type:
+    type: array
+    description: |-
+      One or more types for the credential. It must include "VerifiableCredential" plus a specific type defining the nature of the credential :
+        - VerifiableCredential : define the core structure of the credential,
+    minItems: 1
+    example: ['VerifiableCredential']
+    items:
+      $ref: 'subSchemas/type.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  credentialSubject:
+    $ref: 'subSchemas/credentialSubject.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  issuer:
+    $ref: 'subSchemas/issuer.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  issuanceDate:
+    type: string
+    format: date-time
+    description: The date/time when the credential was issued, in ISO 8601 date-time format.
+    example: "2025-02-26T13:28:09Z"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  proof:
+    $ref: 'subSchemas/proof.yaml'
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'

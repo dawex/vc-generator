@@ -1,0 +1,20 @@
+type: object
+description: Public key object.
+required:
+  - type
+  - key
+properties:
+  type:
+    type: string
+    description: We specify the type of key.
+    example: 'Ed25519'
+    enum:
+      - Ed25519
+    x-oapi-codegen-extra-tags:
+      validate: 'required,oneof=Ed25519'
+  key:
+    type: string
+    description: Public Key (hexadecimal encoded).
+    example: 'e84e39caaa5600b0e4461d72f9deb1737c52de49155263cc718368a49ceb4768'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'

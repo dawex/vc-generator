@@ -1,0 +1,9 @@
+name: contractId
+in: query
+required: true
+description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
+schema:
+  type: string
+  example: 'uktdqs4661qsdqs664141'
+x-oapi-codegen-extra-tags:
+  validate: 'required'

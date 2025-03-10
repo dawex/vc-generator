@@ -1,11 +1,11 @@
 type: object
-description: VC subject.
+description: Event to save.
 required:
-  - id
+  - contractId
   - executionId
-  - monitoringEvents
+  - monitoringEvent
 properties:
-  id:
+  contractId:
     type: string
     description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
     example: 'gfjfgd45555sd5s5s5s5s'
@@ -17,9 +17,5 @@ properties:
     example: 'uktdqs4661qsdqs664141'
     x-oapi-codegen-extra-tags:
       validate: 'required'
-  monitoringEvents:
-    type: array
-    items: 
-      $ref: ../../shared/monitoringEvent.yaml
-    x-oapi-codegen-extra-tags:
-      validate: 'required,dive'
+  monitoringEvent:
+    $ref: ../shared/monitoringEvent.yaml

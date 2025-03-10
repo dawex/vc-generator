@@ -1,0 +1,9 @@
+name: executionId
+in: query
+required: true
+description: A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract.
+schema:
+  type: string
+  example: 'uktdqs4661qsdqs664141'
+x-oapi-codegen-extra-tags:
+  validate: 'required'

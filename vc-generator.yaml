@@ -9,7 +9,7 @@ info:
 
     # Authentication
 
-    Bearer token - Auth is not provided here - could be a bearer token in production env. 
+    Bearer token - Auth is NOT PROVIDED here - could be a bearer token in production env. 
 
     <!-- ReDoc-Inject: <security-definitions> -->
   contact:
@@ -110,26 +110,125 @@ paths:
             });
 
             req.end();
-  /verifiable-credential/_sign:
-    post:
+  /events:
+    get:
       tags:
-        - Verifiable-Credential
-      summary: Sign Verifiable Credential
-      description: Sign one Verifiable Credential base on defined payload model.
-      operationId: signVerifiableCredential
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/vc-in'
+        - Dataset-Execution-Event
+      summary: Get Dataset Execution Events
+      description: Get all events associated to the couple contractId and executionId.
+      operationId: getEvents
+      parameters:
+        - $ref: '#/components/parameters/query_conrtactId'
+        - $ref: '#/components/parameters/query_executionId'
       responses:
         '200':
           description: Successful operation.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/vc-signed'
+                type: array
+                items:
+                  $ref: '#/components/schemas/event'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request GET \
+              --url 'https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141' \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $request->setRequestUrl('https://example-test.com/v1/events');
+            $request->setRequestMethod('GET');
+            $request->setQuery(new http\QueryString([
+              'contractId' => 'uktdqs4661qsdqs664141',
+              'executionId' => 'uktdqs4661qsdqs664141'
+            ]));
+
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+            conn.request("GET", "/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141", headers=headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "GET",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
+            req.end();
+    post:
+      tags:
+        - Dataset-Execution-Event
+      summary: Save Dataset Execution Event
+      description: Save incoming event from Dataset Execution.
+      operationId: saveEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventIn'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event'
         '400':
           $ref: '#/components/responses/400_Error'
         '500':
@@ -138,19 +237,19 @@ paths:
         - lang: Shell + Curl
           source: |-
             curl --request POST \
-              --url https://example-test.com/v1/verifiable-credential/_sign \
+              --url https://example-test.com/v1/events \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential"],"credentialSubject":{"id":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}'
+              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}}'
         - lang: Java + Unirest
           source: |-
-            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/verifiable-credential/_sign")
+            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/events")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\"],\"credentialSubject\":{\"id\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}")
+              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential/_sign\"\n\n\tpayload := strings.NewReader(\"{\\\"@context\\\":[\\\"https://www.w3.org/2018/credentials/v1\\\"],\\\"id\\\":\\\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\\\",\\\"type\\\":[\\\"VerifiableCredential\\\"],\\\"credentialSubject\\\":{\\\"id\\\":\\\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\\\",\\\"executionId\\\":\\\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\\\",\\\"monitoringEvents\\\":[{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"result\\\":{},\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}]}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"result\\\":{},\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -159,9 +258,9 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"@context":["https://www.w3.org/2018/credentials/v1"],"id":"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e","type":["VerifiableCredential"],"credentialSubject":{"id":"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69","executionId":"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb","monitoringEvents":[{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}]}}');
+            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}}');
 
-            $request->setRequestUrl('https://example-test.com/v1/verifiable-credential/_sign');
+            $request->setRequestUrl('https://example-test.com/v1/events');
             $request->setRequestMethod('POST');
             $request->setBody($body);
 
@@ -180,14 +279,14 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"@context\":[\"https://www.w3.org/2018/credentials/v1\"],\"id\":\"urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e\",\"type\":[\"VerifiableCredential\"],\"credentialSubject\":{\"id\":\"urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69\",\"executionId\":\"urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb\",\"monitoringEvents\":[{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}]}}"
+            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
                 'content-type': "application/json"
                 }
 
-            conn.request("POST", "/v1/verifiable-credential/_sign", payload, headers)
+            conn.request("POST", "/v1/events", payload, headers)
 
             res = conn.getresponse()
             data = res.read()
@@ -201,7 +300,7 @@ paths:
               "method": "POST",
               "hostname": "example-test.com",
               "port": null,
-              "path": "/v1/verifiable-credential/_sign",
+              "path": "/v1/events",
               "headers": {
                 "Authorization": "Bearer REPLACE_BEARER_TOKEN",
                 "content-type": "application/json"
@@ -222,24 +321,297 @@ paths:
             });
 
             req.write(JSON.stringify({
-              '@context': ['https://www.w3.org/2018/credentials/v1'],
-              id: 'urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e',
-              type: ['VerifiableCredential'],
-              credentialSubject: {
-                id: 'urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69',
-                executionId: 'urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb',
-                monitoringEvents: [
-                  {
-                    source: 'transfer-plugin',
-                    timestamp: '2025-02-26T13:28:09Z',
-                    metric: 'action-start',
-                    value: 'calculation of statistics',
-                    result: {},
-                    log: 'Root WebApplicationContext: initialization completed in 2758 ms'
-                  }
-                ]
+              contractId: 'gfjfgd45555sd5s5s5s5s',
+              executionId: 'uktdqs4661qsdqs664141',
+              monitoringEvent: {
+                source: 'transfer-plugin',
+                timestamp: '2025-02-26T13:28:09Z',
+                metric: 'action-start',
+                value: 'calculation of statistics',
+                result: {},
+                log: 'Root WebApplicationContext: initialization completed in 2758 ms'
               }
             }));
+            req.end();
+  /verifiable-credential:
+    get:
+      tags:
+        - Verifiable-Credential
+      summary: List Signed Verifiable Credentials
+      description: List all signed Verifiable Credentials.
+      operationId: listVerifiableCredentials
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/vc-signed'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request GET \
+              --url https://example-test.com/v1/verifiable-credential \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/verifiable-credential")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $request->setRequestUrl('https://example-test.com/v1/verifiable-credential');
+            $request->setRequestMethod('GET');
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+            conn.request("GET", "/v1/verifiable-credential", headers=headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "GET",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/verifiable-credential",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
+            req.end();
+  /verifiable-credential/publicKey:
+    get:
+      tags:
+        - Verifiable-Credential
+      summary: Get Public Key
+      description: Get public key for any VC validation process.
+      operationId: getPublicKey
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/publicKey'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request GET \
+              --url https://example-test.com/v1/verifiable-credential/publicKey \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/verifiable-credential/publicKey")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential/publicKey\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $request->setRequestUrl('https://example-test.com/v1/verifiable-credential/publicKey');
+            $request->setRequestMethod('GET');
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+            conn.request("GET", "/v1/verifiable-credential/publicKey", headers=headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "GET",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/verifiable-credential/publicKey",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
+            req.end();
+  /verifiable-credential/_sign:
+    post:
+      tags:
+        - Verifiable-Credential
+      summary: Sign Verifiable Credential for Dataset Execution
+      description: Sign one Verifiable Credential containing all saved events base on dataset execution identified with contractId and executionId.
+      operationId: signVerifiableCredential
+      parameters:
+        - $ref: '#/components/parameters/query_conrtactId'
+        - $ref: '#/components/parameters/query_executionId'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vc-signed'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request POST \
+              --url 'https://example-test.com/v1/verifiable-credential/_sign?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141' \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/verifiable-credential/_sign?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/verifiable-credential/_sign?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"POST\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $request->setRequestUrl('https://example-test.com/v1/verifiable-credential/_sign');
+            $request->setRequestMethod('POST');
+            $request->setQuery(new http\QueryString([
+              'contractId' => 'uktdqs4661qsdqs664141',
+              'executionId' => 'uktdqs4661qsdqs664141'
+            ]));
+
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+            conn.request("POST", "/v1/verifiable-credential/_sign?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141", headers=headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "POST",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/verifiable-credential/_sign?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
             req.end();
 components:
   securitySchemes:
@@ -255,13 +627,6 @@ components:
         errorMessage:
           type: string
           description: error Message
-    type:
-      type: string
-      description: VC Type
-      enum:
-        - VerifiableCredential
-      x-oapi-codegen-extra-tags:
-        validate: required,oneof=VerifiableCredential
     monitoringEvent:
       type: object
       description: Monitoring Event.
@@ -309,6 +674,60 @@ components:
           example: 'Root WebApplicationContext: initialization completed in 2758 ms'
           x-oapi-codegen-extra-tags:
             validate: required
+    eventIn:
+      type: object
+      description: Event to save.
+      required:
+        - contractId
+        - executionId
+        - monitoringEvent
+      properties:
+        contractId:
+          type: string
+          description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
+          example: gfjfgd45555sd5s5s5s5s
+          x-oapi-codegen-extra-tags:
+            validate: required
+        executionId:
+          type: string
+          description: A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract.
+          example: uktdqs4661qsdqs664141
+          x-oapi-codegen-extra-tags:
+            validate: required
+        monitoringEvent:
+          $ref: '#/components/schemas/monitoringEvent'
+    event:
+      type: object
+      description: Event.
+      required:
+        - id
+        - createdAt
+      allOf:
+        - properties:
+            id:
+              type: string
+              description: The unique ID of the event.
+              pattern: ^[-_0-9a-zA-Z]+$
+              minLength: 36
+              maxLength: 36
+              example: b76c02d2-f68f-4ab1-bb97-c75f357c2a75
+              x-go-type: googleuuid.UUID
+              x-go-type-import:
+                path: github.com/google/uuid
+                name: googleuuid
+            createdAt:
+              type: string
+              format: date-time
+              description: Created date.
+              example: '2024-08-30T14:48:15.062268031+02:00'
+        - $ref: '#/components/schemas/eventIn'
+    type:
+      type: string
+      description: VC Type
+      enum:
+        - VerifiableCredential
+      x-oapi-codegen-extra-tags:
+        validate: required,oneof=VerifiableCredential
     credentialSubject:
       type: object
       description: VC subject.
@@ -320,61 +739,19 @@ components:
         id:
           type: string
           description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
-          example: urn:uuid:b94141e8-2f99-4183-b05f-fe9e026a0b69
+          example: gfjfgd45555sd5s5s5s5s
           x-oapi-codegen-extra-tags:
             validate: required
         executionId:
           type: string
           description: A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract.
-          example: urn:uuid:048675d3-a53b-4383-b3e5-5a05187f92cb
+          example: uktdqs4661qsdqs664141
           x-oapi-codegen-extra-tags:
             validate: required
         monitoringEvents:
           type: array
           items:
             $ref: '#/components/schemas/monitoringEvent'
-          x-oapi-codegen-extra-tags:
-            validate: required,dive
-    vc-in:
-      type: object
-      description: VC model.
-      required:
-        - '@context'
-        - id
-        - type
-        - credentialSubject
-      properties:
-        '@context':
-          type: array
-          description: One or more JSON-LD contexts that allow interpreting the terms used. By default, every VC includes the base W3C Credentials context.
-          minItems: 1
-          items:
-            type: string
-            example: https://www.w3.org/2018/credentials/v1
-            x-oapi-codegen-extra-tags:
-              validate: required,url
-          x-oapi-codegen-extra-tags:
-            validate: required,dive
-        id:
-          type: string
-          description: A unique identifier for the credential.
-          example: urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e
-          x-oapi-codegen-extra-tags:
-            validate: required
-        type:
-          type: array
-          description: |-
-            One or more types for the credential. It must include "VerifiableCredential" plus a specific type defining the nature of the credential :
-              - VerifiableCredential : define the core structure of the credential,
-          minItems: 1
-          example:
-            - VerifiableCredential
-          items:
-            $ref: '#/components/schemas/type'
-          x-oapi-codegen-extra-tags:
-            validate: required,dive
-        credentialSubject:
-          $ref: '#/components/schemas/credentialSubject'
           x-oapi-codegen-extra-tags:
             validate: required,dive
     issuer:
@@ -443,29 +820,85 @@ components:
             validate: required
     vc-signed:
       type: object
-      description: VC signed model.
+      description: VC model.
       required:
+        - '@context'
+        - id
+        - type
+        - credentialSubject
         - issuer
         - issuanceDate
         - proof
-      allOf:
-        - $ref: '#/components/schemas/vc-in'
-        - properties:
-            issuer:
-              $ref: '#/components/schemas/issuer'
-              x-oapi-codegen-extra-tags:
-                validate: required,dive
-            issuanceDate:
-              type: string
-              format: date-time
-              description: The date/time when the credential was issued, in ISO 8601 date-time format.
-              example: '2025-02-26T13:28:09Z'
-              x-oapi-codegen-extra-tags:
-                validate: required
-            proof:
-              $ref: '#/components/schemas/proof'
-              x-oapi-codegen-extra-tags:
-                validate: required,dive
+      properties:
+        '@context':
+          type: array
+          description: One or more JSON-LD contexts that allow interpreting the terms used. By default, every VC includes the base W3C Credentials context.
+          minItems: 1
+          items:
+            type: string
+            example: https://www.w3.org/2018/credentials/v1
+            x-oapi-codegen-extra-tags:
+              validate: required,url
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        id:
+          type: string
+          description: A unique identifier for the credential.
+          example: urn:uuid:becc8aaf-be3d-49cd-bd68-ddd9a6e5fe7e
+          x-oapi-codegen-extra-tags:
+            validate: required
+        type:
+          type: array
+          description: |-
+            One or more types for the credential. It must include "VerifiableCredential" plus a specific type defining the nature of the credential :
+              - VerifiableCredential : define the core structure of the credential,
+          minItems: 1
+          example:
+            - VerifiableCredential
+          items:
+            $ref: '#/components/schemas/type'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        credentialSubject:
+          $ref: '#/components/schemas/credentialSubject'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        issuer:
+          $ref: '#/components/schemas/issuer'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        issuanceDate:
+          type: string
+          format: date-time
+          description: The date/time when the credential was issued, in ISO 8601 date-time format.
+          example: '2025-02-26T13:28:09Z'
+          x-oapi-codegen-extra-tags:
+            validate: required
+        proof:
+          $ref: '#/components/schemas/proof'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+    publicKey:
+      type: object
+      description: Public key object.
+      required:
+        - type
+        - key
+      properties:
+        type:
+          type: string
+          description: We specify the type of key.
+          example: Ed25519
+          enum:
+            - Ed25519
+          x-oapi-codegen-extra-tags:
+            validate: required,oneof=Ed25519
+        key:
+          type: string
+          description: Public Key (hexadecimal encoded).
+          example: e84e39caaa5600b0e4461d72f9deb1737c52de49155263cc718368a49ceb4768
+          x-oapi-codegen-extra-tags:
+            validate: required
   responses:
     400_Error:
       description: Bad Request
@@ -483,3 +916,24 @@ components:
             $ref: '#/components/schemas/ModelError'
           example:
             errorMessage: Internal Server Error
+  parameters:
+    query_conrtactId:
+      name: contractId
+      in: query
+      required: true
+      description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
+      schema:
+        type: string
+        example: uktdqs4661qsdqs664141
+      x-oapi-codegen-extra-tags:
+        validate: required
+    query_executionId:
+      name: executionId
+      in: query
+      required: true
+      description: A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract.
+      schema:
+        type: string
+        example: uktdqs4661qsdqs664141
+      x-oapi-codegen-extra-tags:
+        validate: required

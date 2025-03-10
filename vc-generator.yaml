@@ -114,11 +114,11 @@ paths:
     get:
       tags:
         - Dataset-Execution-Event
-      summary: Get Dataset Execution Events
-      description: Get all events associated to the couple contractId and executionId.
+      summary: List Dataset Execution Events
+      description: List Events associated to the couple contractId and executionId.
       operationId: getEvents
       parameters:
-        - $ref: '#/components/parameters/query_conrtactId'
+        - $ref: '#/components/parameters/query_contractId'
         - $ref: '#/components/parameters/query_executionId'
       responses:
         '200':
@@ -523,7 +523,7 @@ paths:
       description: Sign one Verifiable Credential containing all saved events base on dataset execution identified with contractId and executionId.
       operationId: signVerifiableCredential
       parameters:
-        - $ref: '#/components/parameters/query_conrtactId'
+        - $ref: '#/components/parameters/query_contractId'
         - $ref: '#/components/parameters/query_executionId'
       responses:
         '200':
@@ -917,7 +917,7 @@ components:
           example:
             errorMessage: Internal Server Error
   parameters:
-    query_conrtactId:
+    query_contractId:
       name: contractId
       in: query
       required: true

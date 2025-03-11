@@ -240,16 +240,16 @@ paths:
               --url https://example-test.com/v1/events \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}}'
+              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"}}'
         - lang: Java + Unirest
           source: |-
             HttpResponse<String> response = Unirest.post("https://example-test.com/v1/events")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}")
+              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"result\\\":{},\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -258,7 +258,7 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","result":{},"log":"Root WebApplicationContext: initialization completed in 2758 ms"}}');
+            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"}}');
 
             $request->setRequestUrl('https://example-test.com/v1/events');
             $request->setRequestMethod('POST');
@@ -279,7 +279,7 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"result\":{},\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}"
+            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -328,7 +328,6 @@ paths:
                 timestamp: '2025-02-26T13:28:09Z',
                 metric: 'action-start',
                 value: 'calculation of statistics',
-                result: {},
                 log: 'Root WebApplicationContext: initialization completed in 2758 ms'
               }
             }));
@@ -627,6 +626,17 @@ components:
         errorMessage:
           type: string
           description: error Message
+    id:
+      type: string
+      description: The unique ID of the event.
+      pattern: ^[-_0-9a-zA-Z]+$
+      minLength: 36
+      maxLength: 36
+      example: b76c02d2-f68f-4ab1-bb97-c75f357c2a75
+      x-go-type: googleuuid.UUID
+      x-go-type-import:
+        path: github.com/google/uuid
+        name: googleuuid
     monitoringEvent:
       type: object
       description: Monitoring Event.
@@ -665,9 +675,6 @@ components:
           example: calculation of statistics
           x-oapi-codegen-extra-tags:
             validate: required
-        result:
-          type: object
-          description: Any result the metric may have produced. Results are application specific objects that are produced as a result of the completion of an action. Typically they are integer values with 0 indicating normal completion of execution and non-zero indicating completion that resulted in an error. The result of an action may be used for making decisions for following different branches of the workflow or handling errors that may have resulted from the execution of an action. The result filed has meaning for action-end metrics, for the rest its value is None.
         log:
           type: string
           description: Log message that contains details of the monitored metric.
@@ -705,16 +712,7 @@ components:
       allOf:
         - properties:
             id:
-              type: string
-              description: The unique ID of the event.
-              pattern: ^[-_0-9a-zA-Z]+$
-              minLength: 36
-              maxLength: 36
-              example: b76c02d2-f68f-4ab1-bb97-c75f357c2a75
-              x-go-type: googleuuid.UUID
-              x-go-type-import:
-                path: github.com/google/uuid
-                name: googleuuid
+              $ref: '#/components/schemas/id'
             createdAt:
               type: string
               format: date-time

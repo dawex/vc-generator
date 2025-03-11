@@ -35,9 +35,6 @@ properties:
     example: 'calculation of statistics'
     x-oapi-codegen-extra-tags:
       validate: 'required'
-  result:
-    type: object
-    description: Any result the metric may have produced. Results are application specific objects that are produced as a result of the completion of an action. Typically they are integer values with 0 indicating normal completion of execution and non-zero indicating completion that resulted in an error. The result of an action may be used for making decisions for following different branches of the workflow or handling errors that may have resulted from the execution of an action. The result filed has meaning for action-end metrics, for the rest its value is None.
   log:
     type: string
     description: Log message that contains details of the monitored metric.

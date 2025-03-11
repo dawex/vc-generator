@@ -6,16 +6,7 @@ required:
 allOf:
   - properties:
       id:
-        type: string
-        description: The unique ID of the event.
-        pattern: '^[-_0-9a-zA-Z]+$'
-        minLength: 36
-        maxLength: 36
-        example: 'b76c02d2-f68f-4ab1-bb97-c75f357c2a75'
-        x-go-type: googleuuid.UUID
-        x-go-type-import:
-          path: github.com/google/uuid
-          name: googleuuid
+        $ref: id.yaml
       createdAt:
         type: string
         format: date-time

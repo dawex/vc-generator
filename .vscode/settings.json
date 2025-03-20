@@ -1,0 +1,29 @@
+{
+  "go.inferGopath": false,
+  "go.lintOnSave": "workspace",
+  "go.vetOnSave": "package",
+  "go.buildTags": "",
+  "go.buildFlags": [
+    "-tags=wireinject"
+  ],
+  "go.lintFlags": [],
+  "go.vetFlags": [],
+  "go.coverOnSave": false,
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "go.alternateTools": {
+    "go-langserver": "gopls", 
+  },
+  "gopls": { "ui.semanticTokens": true },
+  "go.languageServerExperimentalFeatures": {
+    "format": true,
+    "autoComplete": true
+  },
+  "[go]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+  },
+  "yaml.format.singleQuote": true,
+  "makefile.configureOnOpen": false
+}

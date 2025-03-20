@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: vc-generator
+      POSTGRES_PASSWORD: changeme
+    volumes:
+      - ${HOME}/dawex/github/docker/data/pg:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"

@@ -1,0 +1,14 @@
+.DS_Store
+*__debug*
+coverage.cov
+junit.xml
+internal/**/mocks/
+internal/**/api.gen.go
+internal/**/api_types.gen.go
+internal/**/client.gen.go
+coverage.*
+gl-code-quality-report.json
+gosec-report.json
+.scannerwork
+dist
+*.gen*

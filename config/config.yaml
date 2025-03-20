@@ -1,0 +1,17 @@
+server:
+  env: 'DEV'
+  addr: '0.0.0.0:8090'
+
+db:
+  addr: 'host=127.0.0.1 user=vc-generator password=changeme dbname=vc-generator port=5432 sslmode=disable TimeZone=UTC'
+
+logs:
+  level: 'DEBUG'
+
+security:
+  # Seed is random key (32bytes) used to generate pub/priv ed25519 keys
+  seed: '952d0ccb9f684b7080de13006db44edf'
+
+issuer:
+  id: 'urn:uuid:31e34db6-3fda-4744-b974-ccb0957ecddb'
+  name: 'Upcast Issuer' 

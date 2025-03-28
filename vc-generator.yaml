@@ -110,13 +110,236 @@ paths:
             });
 
             req.end();
-  /events:
+  /negotiation-contracts:
     get:
       tags:
-        - Dataset-Execution-Event
-      summary: List Dataset Execution Events
-      description: List Events associated to the couple contractId and executionId.
-      operationId: getEvents
+        - Negotiation-Contracts
+      summary: List Negotiation Contracts
+      description: List Negociation Contracts associated to the unique contractId.
+      operationId: listNegotiationContracts
+      parameters:
+        - $ref: '#/components/parameters/query_contractId'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/negotiationContract'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request GET \
+              --url 'https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141' \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $request->setRequestUrl('https://example-test.com/v1/negotiation-contracts');
+            $request->setRequestMethod('GET');
+            $request->setQuery(new http\QueryString([
+              'contractId' => 'uktdqs4661qsdqs664141'
+            ]));
+
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+            conn.request("GET", "/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141", headers=headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "GET",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
+            req.end();
+    post:
+      tags:
+        - Negotiation-Contracts
+      summary: Save Negotiation Contract
+      description: Save incoming negotiation contract from 'Upcast Negotiation Plugin'.
+      operationId: saveNegotiationContract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/negotiationContractIn'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/negotiationContract'
+        '400':
+          $ref: '#/components/responses/400_Error'
+        '500':
+          $ref: '#/components/responses/500_Error'
+      x-codeSamples:
+        - lang: Shell + Curl
+          source: |-
+            curl --request POST \
+              --url https://example-test.com/v1/negotiation-contracts \
+              --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+              --header 'content-type: application/json' \
+              --data '{"id":"string","title":"string","type":"string","consumer_id":"string","producer_id":"string","data_processing_workflow_object":"string","natural_language_document":"string","resource_description_object":{},"odrl_policy":{},"negotiation_id":"string","created_at":"2019-08-24T14:15:22Z","updated_at":"2019-08-24T14:15:22Z"}'
+        - lang: Java + Unirest
+          source: |-
+            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/negotiation-contracts")
+              .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+              .header("content-type", "application/json")
+              .body("{\"id\":\"string\",\"title\":\"string\",\"type\":\"string\",\"consumer_id\":\"string\",\"producer_id\":\"string\",\"data_processing_workflow_object\":\"string\",\"natural_language_document\":\"string\",\"resource_description_object\":{},\"odrl_policy\":{},\"negotiation_id\":\"string\",\"created_at\":\"2019-08-24T14:15:22Z\",\"updated_at\":\"2019-08-24T14:15:22Z\"}")
+              .asString();
+        - lang: Go + Native
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/negotiation-contracts\"\n\n\tpayload := strings.NewReader(\"{\\\"id\\\":\\\"string\\\",\\\"title\\\":\\\"string\\\",\\\"type\\\":\\\"string\\\",\\\"consumer_id\\\":\\\"string\\\",\\\"producer_id\\\":\\\"string\\\",\\\"data_processing_workflow_object\\\":\\\"string\\\",\\\"natural_language_document\\\":\\\"string\\\",\\\"resource_description_object\\\":{},\\\"odrl_policy\\\":{},\\\"negotiation_id\\\":\\\"string\\\",\\\"created_at\\\":\\\"2019-08-24T14:15:22Z\\\",\\\"updated_at\\\":\\\"2019-08-24T14:15:22Z\\\"}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+        - lang: Php + Http2
+          source: |-
+            <?php
+
+            $client = new http\Client;
+            $request = new http\Client\Request;
+
+            $body = new http\Message\Body;
+            $body->append('{"id":"string","title":"string","type":"string","consumer_id":"string","producer_id":"string","data_processing_workflow_object":"string","natural_language_document":"string","resource_description_object":{},"odrl_policy":{},"negotiation_id":"string","created_at":"2019-08-24T14:15:22Z","updated_at":"2019-08-24T14:15:22Z"}');
+
+            $request->setRequestUrl('https://example-test.com/v1/negotiation-contracts');
+            $request->setRequestMethod('POST');
+            $request->setBody($body);
+
+            $request->setHeaders([
+              'Authorization' => 'Bearer REPLACE_BEARER_TOKEN',
+              'content-type' => 'application/json'
+            ]);
+
+            $client->enqueue($request)->send();
+            $response = $client->getResponse();
+
+            echo $response->getBody();
+        - lang: Python + Python3
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPSConnection("example-test.com")
+
+            payload = "{\"id\":\"string\",\"title\":\"string\",\"type\":\"string\",\"consumer_id\":\"string\",\"producer_id\":\"string\",\"data_processing_workflow_object\":\"string\",\"natural_language_document\":\"string\",\"resource_description_object\":{},\"odrl_policy\":{},\"negotiation_id\":\"string\",\"created_at\":\"2019-08-24T14:15:22Z\",\"updated_at\":\"2019-08-24T14:15:22Z\"}"
+
+            headers = {
+                'Authorization': "Bearer REPLACE_BEARER_TOKEN",
+                'content-type': "application/json"
+                }
+
+            conn.request("POST", "/v1/negotiation-contracts", payload, headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: Node + Native
+          source: |-
+            const http = require("https");
+
+            const options = {
+              "method": "POST",
+              "hostname": "example-test.com",
+              "port": null,
+              "path": "/v1/negotiation-contracts",
+              "headers": {
+                "Authorization": "Bearer REPLACE_BEARER_TOKEN",
+                "content-type": "application/json"
+              }
+            };
+
+            const req = http.request(options, function (res) {
+              const chunks = [];
+
+              res.on("data", function (chunk) {
+                chunks.push(chunk);
+              });
+
+              res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                console.log(body.toString());
+              });
+            });
+
+            req.write(JSON.stringify({
+              id: 'string',
+              title: 'string',
+              type: 'string',
+              consumer_id: 'string',
+              producer_id: 'string',
+              data_processing_workflow_object: 'string',
+              natural_language_document: 'string',
+              resource_description_object: {},
+              odrl_policy: {},
+              negotiation_id: 'string',
+              created_at: '2019-08-24T14:15:22Z',
+              updated_at: '2019-08-24T14:15:22Z'
+            }));
+            req.end();
+  /compliance-logs:
+    get:
+      tags:
+        - Compliance-Logs
+      summary: List Compliance Logs
+      description: List Compliance Logs associated to the couple contractId and executionId.
+      operationId: listComplianceLogs
       parameters:
         - $ref: '#/components/parameters/query_contractId'
         - $ref: '#/components/parameters/query_executionId'
@@ -128,7 +351,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/event'
+                  $ref: '#/components/schemas/complianceLog'
         '400':
           $ref: '#/components/responses/400_Error'
         '500':
@@ -137,15 +360,15 @@ paths:
         - lang: Shell + Curl
           source: |-
             curl --request GET \
-              --url 'https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141' \
+              --url 'https://example-test.com/v1/compliance-logs?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141' \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
         - lang: Java + Unirest
           source: |-
-            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141")
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/compliance-logs?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -153,7 +376,7 @@ paths:
             $client = new http\Client;
             $request = new http\Client\Request;
 
-            $request->setRequestUrl('https://example-test.com/v1/events');
+            $request->setRequestUrl('https://example-test.com/v1/compliance-logs');
             $request->setRequestMethod('GET');
             $request->setQuery(new http\QueryString([
               'contractId' => 'uktdqs4661qsdqs664141',
@@ -176,7 +399,7 @@ paths:
 
             headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
 
-            conn.request("GET", "/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141", headers=headers)
+            conn.request("GET", "/v1/compliance-logs?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141", headers=headers)
 
             res = conn.getresponse()
             data = res.read()
@@ -190,7 +413,7 @@ paths:
               "method": "GET",
               "hostname": "example-test.com",
               "port": null,
-              "path": "/v1/events?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141",
+              "path": "/v1/compliance-logs?contractId=uktdqs4661qsdqs664141&executionId=uktdqs4661qsdqs664141",
               "headers": {
                 "Authorization": "Bearer REPLACE_BEARER_TOKEN"
               }
@@ -212,23 +435,23 @@ paths:
             req.end();
     post:
       tags:
-        - Dataset-Execution-Event
-      summary: Save Dataset Execution Event
-      description: Save incoming event from Dataset Execution.
-      operationId: saveEvent
+        - Compliance-Logs
+      summary: Save Compliance Log
+      description: Save incoming compliance log from 'Upcast Compliance Plugin'.
+      operationId: saveComplianceLog
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/eventIn'
+              $ref: '#/components/schemas/complianceLogIn'
       responses:
         '200':
           description: Successful operation.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/event'
+                $ref: '#/components/schemas/complianceLog'
         '400':
           $ref: '#/components/responses/400_Error'
         '500':
@@ -237,19 +460,19 @@ paths:
         - lang: Shell + Curl
           source: |-
             curl --request POST \
-              --url https://example-test.com/v1/events \
+              --url https://example-test.com/v1/compliance-logs \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"}}'
+              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"},"complianceLogs":[{"type":"ALERT","typeMsg":"rule violation","rule":"rule 1","details":"$name in {}"}]}'
         - lang: Java + Unirest
           source: |-
-            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/events")
+            HttpResponse<String> response = Unirest.post("https://example-test.com/v1/compliance-logs")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}")
+              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"},\"complianceLogs\":[{\"type\":\"ALERT\",\"typeMsg\":\"rule violation\",\"rule\":\"rule 1\",\"details\":\"$name in {}\"}]}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/events\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"},\\\"complianceLogs\\\":[{\\\"type\\\":\\\"ALERT\\\",\\\"typeMsg\\\":\\\"rule violation\\\",\\\"rule\\\":\\\"rule 1\\\",\\\"details\\\":\\\"$name in {}\\\"}]}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -258,9 +481,9 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"}}');
+            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"},"complianceLogs":[{"type":"ALERT","typeMsg":"rule violation","rule":"rule 1","details":"$name in {}"}]}');
 
-            $request->setRequestUrl('https://example-test.com/v1/events');
+            $request->setRequestUrl('https://example-test.com/v1/compliance-logs');
             $request->setRequestMethod('POST');
             $request->setBody($body);
 
@@ -279,14 +502,14 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"}}"
+            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"},\"complianceLogs\":[{\"type\":\"ALERT\",\"typeMsg\":\"rule violation\",\"rule\":\"rule 1\",\"details\":\"$name in {}\"}]}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
                 'content-type': "application/json"
                 }
 
-            conn.request("POST", "/v1/events", payload, headers)
+            conn.request("POST", "/v1/compliance-logs", payload, headers)
 
             res = conn.getresponse()
             data = res.read()
@@ -300,7 +523,7 @@ paths:
               "method": "POST",
               "hostname": "example-test.com",
               "port": null,
-              "path": "/v1/events",
+              "path": "/v1/compliance-logs",
               "headers": {
                 "Authorization": "Bearer REPLACE_BEARER_TOKEN",
                 "content-type": "application/json"
@@ -329,7 +552,15 @@ paths:
                 metric: 'action-start',
                 value: 'calculation of statistics',
                 log: 'Root WebApplicationContext: initialization completed in 2758 ms'
-              }
+              },
+              complianceLogs: [
+                {
+                  type: 'ALERT',
+                  typeMsg: 'rule violation',
+                  rule: 'rule 1',
+                  details: '$name in {}'
+                }
+              ]
             }));
             req.end();
   /verifiable-credential:
@@ -628,7 +859,7 @@ components:
           description: error Message
     id:
       type: string
-      description: The unique ID of the event.
+      description: The unique ID.
       pattern: ^[-_0-9a-zA-Z]+$
       minLength: 36
       maxLength: 36
@@ -637,6 +868,66 @@ components:
       x-go-type-import:
         path: github.com/google/uuid
         name: googleuuid
+    negotiationContractIn:
+      type: object
+      required:
+        - type
+        - consumer_id
+        - producer_id
+        - data_processing_workflow_object
+        - natural_language_document
+        - resource_description_object
+        - odrl_policy
+      properties:
+        id:
+          type: string
+          description: ' Id'
+        title:
+          type: string
+          description: Title
+        type:
+          type: string
+          description: Type
+        consumer_id:
+          type: string
+          description: Consumer Id
+        producer_id:
+          type: string
+          description: Producer Id
+        data_processing_workflow_object:
+          type: string
+          description: Data Processing Workflow Object
+        natural_language_document:
+          type: string
+          description: Natural Language Document
+        resource_description_object:
+          type: object
+          description: upcastResourceDescriptionObject
+        odrl_policy:
+          type: object
+          description: Odrl Policy
+        negotiation_id:
+          type: string
+          description: Negotiation Id
+        created_at:
+          type: string
+          format: date-time
+          description: Created At
+        updated_at:
+          type: string
+          format: date-time
+          description: Updated At
+    negotiationContract:
+      type: object
+      description: Compliance Log.
+      required:
+        - id
+        - createdAt
+      allOf:
+        - properties:
+            id:
+              $ref: '#/components/schemas/id'
+        - $ref: '#/components/schemas/negotiationContractIn'
     monitoringEvent:
       type: object
       description: Monitoring Event.
@@ -681,13 +972,47 @@ components:
           example: 'Root WebApplicationContext: initialization completed in 2758 ms'
           x-oapi-codegen-extra-tags:
             validate: required
-    eventIn:
+    complianceAuditLog:
       type: object
-      description: Event to save.
+      description: Compliance Audit Log.
+      required:
+        - type
+        - typeMsg
+        - rule
+        - details
+      properties:
+        type:
+          type: string
+          description: Type.
+          example: ALERT
+          x-oapi-codegen-extra-tags:
+            validate: required
+        typeMsg:
+          type: string
+          description: Type message.
+          example: rule violation
+          x-oapi-codegen-extra-tags:
+            validate: required
+        rule:
+          type: string
+          description: Rule.
+          example: rule 1
+          x-oapi-codegen-extra-tags:
+            validate: required
+        details:
+          type: string
+          description: Details.
+          example: $name in {}
+          x-oapi-codegen-extra-tags:
+            validate: required
+    complianceLogIn:
+      type: object
+      description: Compliance Log to save.
       required:
         - contractId
         - executionId
         - monitoringEvent
+        - complianceLogs
       properties:
         contractId:
           type: string
@@ -703,9 +1028,17 @@ components:
             validate: required
         monitoringEvent:
           $ref: '#/components/schemas/monitoringEvent'
-    event:
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        complianceLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/complianceAuditLog'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+    complianceLog:
       type: object
-      description: Event.
+      description: Compliance Log.
       required:
         - id
         - createdAt
@@ -718,7 +1051,7 @@ components:
               format: date-time
               description: Created date.
               example: '2024-08-30T14:48:15.062268031+02:00'
-        - $ref: '#/components/schemas/eventIn'
+        - $ref: '#/components/schemas/complianceLogIn'
     type:
       type: string
       description: VC Type
@@ -726,6 +1059,23 @@ components:
         - VerifiableCredential
       x-oapi-codegen-extra-tags:
         validate: required,oneof=VerifiableCredential
+    complianceAudit:
+      type: object
+      description: Compliance Audit.
+      required:
+        - monitoringEvent
+        - complianceLogs
+      properties:
+        monitoringEvent:
+          $ref: '#/components/schemas/monitoringEvent'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
+        complianceLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/complianceAuditLog'
+          x-oapi-codegen-extra-tags:
+            validate: required,dive
     credentialSubject:
       type: object
       description: VC subject.
@@ -746,10 +1096,12 @@ components:
           example: uktdqs4661qsdqs664141
           x-oapi-codegen-extra-tags:
             validate: required
-        monitoringEvents:
+        contract:
+          $ref: '#/components/schemas/negotiationContractIn'
+        complianceAudit:
           type: array
           items:
-            $ref: '#/components/schemas/monitoringEvent'
+            $ref: '#/components/schemas/complianceAudit'
           x-oapi-codegen-extra-tags:
             validate: required,dive
     issuer:
@@ -919,7 +1271,7 @@ components:
       name: contractId
       in: query
       required: true
-      description: A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it.
+      description: A unique identifier for the contract.
       schema:
         type: string
         example: uktdqs4661qsdqs664141

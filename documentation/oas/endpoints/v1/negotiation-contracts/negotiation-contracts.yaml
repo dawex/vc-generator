@@ -31,7 +31,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../components/schemas/v1/negotiation-contracts/negotiationContractIn.yaml'
+          $ref: '../../../components/schemas/v1/negotiation-contracts/negotiationContract.yaml'
   responses:
     '200':
       description: Successful operation.

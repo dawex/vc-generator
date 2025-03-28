@@ -1,5 +1,5 @@
 type: string
-description: The unique ID of the event.
+description: The unique ID.
 pattern: '^[-_0-9a-zA-Z]+$'
 minLength: 36
 maxLength: 36

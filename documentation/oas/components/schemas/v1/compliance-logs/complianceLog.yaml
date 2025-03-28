@@ -1,15 +1,15 @@
 type: object
-description: Event.
+description: Compliance Log.
 required: 
   - id
   - createdAt
 allOf:
   - properties:
       id:
-        $ref: id.yaml
+        $ref: ../shared/id.yaml
       createdAt:
         type: string
         format: date-time
         description: Created date.
         example: "2024-08-30T14:48:15.062268031+02:00"
-  - $ref: eventIn.yaml
+  - $ref: complianceLogIn.yaml

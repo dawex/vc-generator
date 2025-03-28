@@ -1,0 +1,32 @@
+type: object
+description: Compliance Audit Log.
+required:
+  - type
+  - typeMsg
+  - rule
+  - details
+properties:
+  type:
+    type: string
+    description: Type.
+    example: 'ALERT'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  typeMsg:
+    type: string
+    description: Type message.
+    example: 'rule violation'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  rule:
+    type: string
+    description: Rule.
+    example: 'rule 1'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  details:
+    type: string
+    description: Details.
+    example: '$name in {}'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'

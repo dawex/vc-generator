@@ -1,0 +1,48 @@
+type: "object"
+required: 
+  - "type"
+  - "consumer_id"
+  - "producer_id"
+  - "data_processing_workflow_object"
+  - "natural_language_document"
+  - "resource_description_object"
+  - "odrl_policy"
+properties: 
+  id: 
+    type: "string"
+    description: " Id"
+  title: 
+    type: "string"
+    description: "Title"
+  type: 
+    type: "string"
+    description: "Type"
+  consumer_id: 
+    type: "string"
+    description: "Consumer Id"
+  producer_id: 
+    type: "string"
+    description: "Producer Id"
+  data_processing_workflow_object: 
+    type: "string"
+    description: "Data Processing Workflow Object"
+  natural_language_document: 
+    type: "string"
+    description: "Natural Language Document"
+  resource_description_object: 
+    type: "object"
+    description: "upcastResourceDescriptionObject"
+  odrl_policy: 
+    type: "object"
+    description: "Odrl Policy"
+  negotiation_id: 
+    type: "string"
+    description: "Negotiation Id"
+  created_at: 
+    type: "string"
+    format: "date-time"
+    description: "Created At"
+  updated_at: 
+    type: "string"
+    format: "date-time"
+    description: "Updated At"

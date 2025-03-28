@@ -1,12 +1,11 @@
 get:
   tags:
-    - Dataset-Execution-Event
-  summary: List Dataset Execution Events
-  description: List Events associated to the couple contractId and executionId.
-  operationId: getEvents
+    - Negotiation-Contracts
+  summary: List Negotiation Contracts
+  description: List Negociation Contracts associated to the unique contractId.
+  operationId: listNegotiationContracts
   parameters:
     - $ref: '../../../components/parameters/query_contractId.yaml'
-    - $ref: '../../../components/parameters/query_executionId.yaml'
   responses:
     '200':
       description: Successful operation.
@@ -15,7 +14,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../../../components/schemas/v1/event/event.yaml'
+              $ref: '../../../components/schemas/v1/negotiation-contracts/negotiationContract.yaml'
     '400':
       $ref: '../../../components/errors/400_Error.yaml'
     '500':
@@ -23,23 +22,23 @@ get:
 
 post:
   tags:
-    - Dataset-Execution-Event
-  summary: Save Dataset Execution Event
-  description: Save incoming event from Dataset Execution.
-  operationId: saveEvent
+    - Negotiation-Contracts
+  summary: Save Negotiation Contract
+  description: Save incoming negotiation contract from 'Upcast Negotiation Plugin'.
+  operationId: saveNegotiationContract
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          $ref: '../../../components/schemas/v1/event/eventIn.yaml'
+          $ref: '../../../components/schemas/v1/negotiation-contracts/negotiationContractIn.yaml'
   responses:
     '200':
       description: Successful operation.
       content:
         application/json:
           schema:
-            $ref: '../../../components/schemas/v1/event/event.yaml'
+            $ref: '../../../components/schemas/v1/negotiation-contracts/negotiationContract.yaml'
     '400':
       $ref: '../../../components/errors/400_Error.yaml'
     '500':

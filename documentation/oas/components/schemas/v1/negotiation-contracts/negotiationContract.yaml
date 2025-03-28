@@ -1,0 +1,10 @@
+type: object
+description: Compliance Log.
+required: 
+  - id
+  - createdAt
+allOf:
+  - properties:
+      id:
+        $ref: ../shared/id.yaml
+  - $ref: negotiationContractIn.yaml

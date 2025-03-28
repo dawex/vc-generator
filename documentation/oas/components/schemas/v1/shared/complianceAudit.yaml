@@ -1,0 +1,16 @@
+type: object
+description: Compliance Audit.
+required:
+  - monitoringEvent
+  - complianceLogs
+properties:
+  monitoringEvent:
+    $ref: monitoringEvent.yaml
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  complianceLogs:
+    type: array
+    items: 
+      $ref: complianceAuditLog.yaml
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'

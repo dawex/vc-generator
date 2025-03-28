@@ -26,10 +26,14 @@ servers:
 paths:
   '/healthcheck':
     $ref: endpoints/healthcheck/healthcheck.yaml
+    
+  # negotiation-contracts
+  '/negotiation-contracts':
+    $ref: endpoints/v1/negotiation-contracts/negotiation-contracts.yaml
   
-  # events
-  '/events':
-    $ref: endpoints/v1/events/events.yaml
+  # compliance-logs
+  '/compliance-logs':
+    $ref: endpoints/v1/compliance-logs/compliance-logs.yaml
 
   # verifiable-credential
   '/verifiable-credential':

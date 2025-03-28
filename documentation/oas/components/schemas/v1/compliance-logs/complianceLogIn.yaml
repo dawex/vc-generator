@@ -1,9 +1,10 @@
 type: object
-description: Event to save.
+description: Compliance Log to save.
 required:
   - contractId
   - executionId
   - monitoringEvent
+  - complianceLogs
 properties:
   contractId:
     type: string
@@ -19,3 +20,11 @@ properties:
       validate: 'required'
   monitoringEvent:
     $ref: ../shared/monitoringEvent.yaml
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'
+  complianceLogs:
+    type: array
+    items: 
+      $ref: ../shared/complianceAuditLog.yaml
+    x-oapi-codegen-extra-tags:
+      validate: 'required,dive'

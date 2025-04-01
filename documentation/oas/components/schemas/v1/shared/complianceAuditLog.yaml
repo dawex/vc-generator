@@ -1,32 +1,39 @@
 type: object
 description: Compliance Audit Log.
 required:
-  - type
-  - typeMsg
-  - rule
-  - details
+  - log_lvl
+  - log_msg
+  - rule_num
+  - rule_context
+  - rule_expr
 properties:
-  type:
+  log_lvl:
     type: string
-    description: Type.
+    description: Log level.
     example: 'ALERT'
     x-oapi-codegen-extra-tags:
       validate: 'required'
-  typeMsg:
+  log_msg:
     type: string
-    description: Type message.
+    description: Log message.
     example: 'rule violation'
     x-oapi-codegen-extra-tags:
       validate: 'required'
-  rule:
+  rule_num:
     type: string
-    description: Rule.
-    example: 'rule 1'
+    description: Rule number.
+    example: '1'
     x-oapi-codegen-extra-tags:
       validate: 'required'
-  details:
+  rule_context:
     type: string
-    description: Details.
-    example: '$name in {}'
+    description: Rule context.
+    example: '1'
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  rule_expr:
+    type: string
+    description: Rule expression.
+    example: "'adm' in $groups"
     x-oapi-codegen-extra-tags:
       validate: 'required'

@@ -24,11 +24,8 @@ properties:
     type: string
     description: The name of the metric that is reported.
     example: 'action-start'
-    enum:
-      - action-start
-      - action-stop
     x-oapi-codegen-extra-tags:
-      validate: 'required,oneof=action-start action-stop'
+      validate: 'required'
   value:
     type: string
     description: The value of the metric that is reported, e.g., the name of the action that is started.
@@ -41,3 +38,16 @@ properties:
     example: 'Root WebApplicationContext: initialization completed in 2758 ms'
     x-oapi-codegen-extra-tags:
       validate: 'required'
+  params:
+    type: array
+    description: The parameters of the metric that is reported.
+    items:
+      type: string
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
+  result:
+    type: string
+    description: Result of the monitored metric.
+  group:
+    type: string
+    description: Group of the monitored metric.

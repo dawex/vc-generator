@@ -463,16 +463,16 @@ paths:
               --url https://example-test.com/v1/compliance-logs \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"},"complianceLogs":[{"type":"ALERT","typeMsg":"rule violation","rule":"rule 1","details":"$name in {}"}]}'
+              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","group":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"1","rule_expr":"'\''adm'\'' in $groups"}]}'
         - lang: Java + Unirest
           source: |-
             HttpResponse<String> response = Unirest.post("https://example-test.com/v1/compliance-logs")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"},\"complianceLogs\":[{\"type\":\"ALERT\",\"typeMsg\":\"rule violation\",\"rule\":\"rule 1\",\"details\":\"$name in {}\"}]}")
+              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"group\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"1\",\"rule_expr\":\"'adm' in $groups\"}]}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\"},\\\"complianceLogs\\\":[{\\\"type\\\":\\\"ALERT\\\",\\\"typeMsg\\\":\\\"rule violation\\\",\\\"rule\\\":\\\"rule 1\\\",\\\"details\\\":\\\"$name in {}\\\"}]}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\",\\\"params\\\":[\\\"string\\\"],\\\"result\\\":\\\"string\\\",\\\"group\\\":\\\"string\\\"},\\\"complianceLogs\\\":[{\\\"log_lvl\\\":\\\"ALERT\\\",\\\"log_msg\\\":\\\"rule violation\\\",\\\"rule_num\\\":\\\"1\\\",\\\"rule_context\\\":\\\"1\\\",\\\"rule_expr\\\":\\\"'adm' in $groups\\\"}]}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -481,7 +481,7 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms"},"complianceLogs":[{"type":"ALERT","typeMsg":"rule violation","rule":"rule 1","details":"$name in {}"}]}');
+            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","group":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"1","rule_expr":"'adm' in $groups"}]}');
 
             $request->setRequestUrl('https://example-test.com/v1/compliance-logs');
             $request->setRequestMethod('POST');
@@ -502,7 +502,7 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\"},\"complianceLogs\":[{\"type\":\"ALERT\",\"typeMsg\":\"rule violation\",\"rule\":\"rule 1\",\"details\":\"$name in {}\"}]}"
+            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"group\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"1\",\"rule_expr\":\"'adm' in $groups\"}]}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -551,14 +551,18 @@ paths:
                 timestamp: '2025-02-26T13:28:09Z',
                 metric: 'action-start',
                 value: 'calculation of statistics',
-                log: 'Root WebApplicationContext: initialization completed in 2758 ms'
+                log: 'Root WebApplicationContext: initialization completed in 2758 ms',
+                params: ['string'],
+                result: 'string',
+                group: 'string'
               },
               complianceLogs: [
                 {
-                  type: 'ALERT',
-                  typeMsg: 'rule violation',
-                  rule: 'rule 1',
-                  details: '$name in {}'
+                  log_lvl: 'ALERT',
+                  log_msg: 'rule violation',
+                  rule_num: '1',
+                  rule_context: '1',
+                  rule_expr: '\'adm\' in $groups'
                 }
               ]
             }));
@@ -945,11 +949,8 @@ components:
           type: string
           description: The name of the metric that is reported.
           example: action-start
-          enum:
-            - action-start
-            - action-stop
           x-oapi-codegen-extra-tags:
-            validate: required,oneof=action-start action-stop
+            validate: required
         value:
           type: string
           description: The value of the metric that is reported, e.g., the name of the action that is started.
@@ -962,37 +963,57 @@ components:
           example: 'Root WebApplicationContext: initialization completed in 2758 ms'
           x-oapi-codegen-extra-tags:
             validate: required
+        params:
+          type: array
+          description: The parameters of the metric that is reported.
+          items:
+            type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+        result:
+          type: string
+          description: Result of the monitored metric.
+        group:
+          type: string
+          description: Group of the monitored metric.
     complianceAuditLog:
       type: object
       description: Compliance Audit Log.
       required:
-        - type
-        - typeMsg
-        - rule
-        - details
+        - log_lvl
+        - log_msg
+        - rule_num
+        - rule_context
+        - rule_expr
       properties:
-        type:
+        log_lvl:
           type: string
-          description: Type.
+          description: Log level.
           example: ALERT
           x-oapi-codegen-extra-tags:
             validate: required
-        typeMsg:
+        log_msg:
           type: string
-          description: Type message.
+          description: Log message.
           example: rule violation
           x-oapi-codegen-extra-tags:
             validate: required
-        rule:
+        rule_num:
           type: string
-          description: Rule.
-          example: rule 1
+          description: Rule number.
+          example: '1'
           x-oapi-codegen-extra-tags:
             validate: required
-        details:
+        rule_context:
           type: string
-          description: Details.
-          example: $name in {}
+          description: Rule context.
+          example: '1'
+          x-oapi-codegen-extra-tags:
+            validate: required
+        rule_expr:
+          type: string
+          description: Rule expression.
+          example: '''adm'' in $groups'
           x-oapi-codegen-extra-tags:
             validate: required
     complianceLogIn:

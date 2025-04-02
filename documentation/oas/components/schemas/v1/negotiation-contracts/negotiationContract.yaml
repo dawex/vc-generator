@@ -1,6 +1,7 @@
 type: "object"
 description: Negociation Contract.
 required: 
+  - id
   - "type"
   - "consumer_id"
   - "producer_id"
@@ -12,30 +13,46 @@ properties:
   id: 
     type: "string"
     description: " Id"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   title: 
     type: "string"
     description: "Title"
   type: 
     type: "string"
     description: "Type"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   consumer_id: 
     type: "string"
     description: "Consumer Id"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   producer_id: 
     type: "string"
     description: "Producer Id"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   data_processing_workflow_object: 
     type: "string"
     description: "Data Processing Workflow Object"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   natural_language_document: 
     type: "string"
     description: "Natural Language Document"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   resource_description_object: 
     type: "object"
     description: "upcastResourceDescriptionObject"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   odrl_policy: 
     type: "object"
     description: "Odrl Policy"
+    x-oapi-codegen-extra-tags:
+      validate: 'required'
   negotiation_id: 
     type: "string"
     description: "Negotiation Id"

@@ -6,6 +6,7 @@ required:
   - metric
   - value
   - log
+  - group
 properties:
   source:
     type: string

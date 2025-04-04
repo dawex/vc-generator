@@ -10,6 +10,8 @@ import (
 
 	lddocloader "github.com/trustbloc/did-go/doc/ld/documentloader"
 	ldtestutil "github.com/trustbloc/did-go/doc/ld/testutil"
+
+	negotiationcontracts_ports "github.com/dawex/vc-generator/internal/services/negotiation-contracts/ports"
 )
 
 func getJSONLDDocumentLoader() *lddocloader.DocumentLoader {
@@ -57,4 +59,37 @@ func mapVerifiableCredentialToModel(vc *verifiable.Credential) (*models.Verifiab
 	model.ProofVerificationMethod = vc.Proofs()[0]["verificationMethod"].(string)
 
 	return &model, nil
+}
+
+func modelToEntity(model *models.NegotiationContract) (*negotiationcontracts_ports.NegotiationContract, error) {
+	var entity negotiationcontracts_ports.NegotiationContract
+
+	entity.Id = model.ID
+	entity.Type = model.Type
+	entity.ConsumerId = model.ConsumerID
+	entity.ProducerId = model.ProducerID
+	entity.DataProcessingWorkflowObject = model.DataProcessingWorkflowObject
+	entity.NaturalLanguageDocument = model.NaturalLanguageDocument
+	entity.Title = model.Title
+	entity.NegotiationId = model.NegotiationID
+	entity.CreatedAt = &model.CreatedAt
+	entity.UpdatedAt = &model.UpdatedAt
+
+	policyValue, err := model.OdrlPolicy.Value()
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(policyValue.([]byte), &entity.OdrlPolicy); err != nil {
+		return nil, err
+	}
+
+	resourceValue, err := model.ResourceDescriptionObject.Value()
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(resourceValue.([]byte), &entity.ResourceDescriptionObject); err != nil {
+		return nil, err
+	}
+
+	return &entity, nil
 }

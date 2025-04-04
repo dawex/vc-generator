@@ -2,10 +2,8 @@ get:
   tags:
     - Negotiation-Contracts
   summary: List Negotiation Contracts
-  description: List Negociation Contracts associated to the unique contractId.
+  description: List All Negociation Contracts.
   operationId: listNegotiationContracts
-  parameters:
-    - $ref: '../../../components/parameters/query_contractId.yaml'
   responses:
     '200':
       description: Successful operation.

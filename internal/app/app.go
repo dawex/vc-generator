@@ -11,10 +11,15 @@ import (
 	"github.com/go-chi/render"
 	"gorm.io/gorm"
 
-	event_handler "github.com/dawex/vc-generator/internal/services/event/adapters/handler"
-	event_repository "github.com/dawex/vc-generator/internal/services/event/adapters/repository"
-	event_core "github.com/dawex/vc-generator/internal/services/event/core"
-	event_ports "github.com/dawex/vc-generator/internal/services/event/ports"
+	negotiationcontracts_handler "github.com/dawex/vc-generator/internal/services/negotiation-contracts/adapters/handler"
+	negotiationcontracts_repository "github.com/dawex/vc-generator/internal/services/negotiation-contracts/adapters/repository"
+	negotiationcontracts_core "github.com/dawex/vc-generator/internal/services/negotiation-contracts/core"
+	negotiationcontracts_ports "github.com/dawex/vc-generator/internal/services/negotiation-contracts/ports"
+
+	compliancelogs_handler "github.com/dawex/vc-generator/internal/services/compliance-logs/adapters/handler"
+	compliancelogs_repository "github.com/dawex/vc-generator/internal/services/compliance-logs/adapters/repository"
+	compliancelogs_core "github.com/dawex/vc-generator/internal/services/compliance-logs/core"
+	compliancelogs_ports "github.com/dawex/vc-generator/internal/services/compliance-logs/ports"
 
 	vc_handler "github.com/dawex/vc-generator/internal/services/verifiable-credential/adapters/handler"
 	vc_repository "github.com/dawex/vc-generator/internal/services/verifiable-credential/adapters/repository"
@@ -51,8 +56,9 @@ func NewApp(app_name string, app_config config.Config) (*gorm.DB, *chi.Mux) {
 	)
 
 	// Register Services
-	event_ports.HandlerWithOptions(event_handler.NewHandler(event_core.New(event_repository.New(gormDb))), event_ports.ChiServerOptions{BaseURL: pathPrefix, BaseRouter: router})
-	vc_ports.HandlerWithOptions(vc_handler.NewHandler(vc_core.New(app_config, vc_repository.New(gormDb), event_repository.New(gormDb))), vc_ports.ChiServerOptions{BaseURL: pathPrefix, BaseRouter: router})
+	negotiationcontracts_ports.HandlerWithOptions(negotiationcontracts_handler.NewHandler(negotiationcontracts_core.New(negotiationcontracts_repository.New(gormDb))), negotiationcontracts_ports.ChiServerOptions{BaseURL: pathPrefix, BaseRouter: router})
+	compliancelogs_ports.HandlerWithOptions(compliancelogs_handler.NewHandler(compliancelogs_core.New(compliancelogs_repository.New(gormDb))), compliancelogs_ports.ChiServerOptions{BaseURL: pathPrefix, BaseRouter: router})
+	vc_ports.HandlerWithOptions(vc_handler.NewHandler(vc_core.New(app_config, vc_repository.New(gormDb), compliancelogs_repository.New(gormDb), negotiationcontracts_repository.New(gormDb))), vc_ports.ChiServerOptions{BaseURL: pathPrefix, BaseRouter: router})
 
 	return gormDb, router
 }

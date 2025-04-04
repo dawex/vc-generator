@@ -53,3 +53,7 @@ Create DB with dbname=vc-generator
     ```bash
     make test_go
     ```
+
+### Postman Collection
+
+Postman collection for test purpose is available in 'test/postman/..'

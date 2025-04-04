@@ -22,7 +22,7 @@ func (r *Repository) BeginWithCtx(ctx context.Context) *gorm.DB {
 	return r.db.WithContext(ctx)
 }
 
-func (r *Repository) UpsertEvent(ctx context.Context, model *models.Event) (*models.Event, error) {
+func (r *Repository) UpsertComplianceLog(ctx context.Context, model *models.ComplianceLog) (*models.ComplianceLog, error) {
 	if err := r.BeginWithCtx(ctx).Save(&model).Error; err != nil {
 		return nil, errors.WithStack(err)
 	}
@@ -30,8 +30,8 @@ func (r *Repository) UpsertEvent(ctx context.Context, model *models.Event) (*mod
 	return model, nil
 }
 
-func (r *Repository) ListEvents(ctx context.Context, contractId string, executionId string) ([]models.Event, error) {
-	elems := []models.Event{}
+func (r *Repository) ListComplianceLogs(ctx context.Context, contractId string, executionId string) ([]models.ComplianceLog, error) {
+	elems := []models.ComplianceLog{}
 	if err := r.BeginWithCtx(ctx).Where("contract_id = ?", contractId).Where("execution_id = ?", executionId).Find(&elems).Error; err != nil {
 		return nil, errors.WithStack(err)
 	}

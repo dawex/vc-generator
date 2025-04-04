@@ -6,7 +6,7 @@ required:
   - metric
   - value
   - log
-  - group
+  - groups
 properties:
   source:
     type: string
@@ -49,6 +49,6 @@ properties:
   result:
     type: string
     description: Result of the monitored metric.
-  group:
+  groups:
     type: string
-    description: Group of the monitored metric.
+    description: Groups of the monitored metric.

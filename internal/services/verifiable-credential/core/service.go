@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ed25519"
 	"encoding/hex"
+	"encoding/json"
 	"time"
 
 	"github.com/dawex/vc-generator/internal/common/config"
@@ -23,12 +24,14 @@ import (
 	"github.com/trustbloc/vc-go/proof/ldproofs/jsonwebsignature2020"
 	"github.com/trustbloc/vc-go/verifiable"
 
-	event_ports "github.com/dawex/vc-generator/internal/services/event/ports"
+	compliancelogs_ports "github.com/dawex/vc-generator/internal/services/compliance-logs/ports"
+	negotiationcontracts_ports "github.com/dawex/vc-generator/internal/services/negotiation-contracts/ports"
 	verifiable_credential_ports "github.com/dawex/vc-generator/internal/services/verifiable-credential/ports"
 )
 
 type Service struct {
-	event_repository                 event_ports.Repository
+	negotiationcontracts_repository  negotiationcontracts_ports.Repository
+	compliancelogs_repository        compliancelogs_ports.Repository
 	verifiable_credential_repository verifiable_credential_ports.Repository
 	app_config                       config.Config
 	publicKey                        ed25519.PublicKey
@@ -36,7 +39,7 @@ type Service struct {
 	signer                           *creator.ProofCreator
 }
 
-func New(app_config config.Config, verifiable_credential_repository verifiable_credential_ports.Repository, event_repository event_ports.Repository) *Service {
+func New(app_config config.Config, verifiable_credential_repository verifiable_credential_ports.Repository, compliancelogs_repository compliancelogs_ports.Repository, negotiationcontracts_repository negotiationcontracts_ports.Repository) *Service {
 	// Generate an Ed25519 key pair for the issuer from configured Seed
 	privateKey := ed25519.NewKeyFromSeed([]byte(app_config.Security.Seed))
 	publicKey := privateKey.Public().(ed25519.PublicKey)
@@ -52,7 +55,8 @@ func New(app_config config.Config, verifiable_credential_repository verifiable_c
 		creator.WithJWTAlg(eddsa.New(), entities.NewEd25519Signer(privateKey)))
 
 	return &Service{
-		event_repository:                 event_repository,
+		negotiationcontracts_repository:  negotiationcontracts_repository,
+		compliancelogs_repository:        compliancelogs_repository,
 		verifiable_credential_repository: verifiable_credential_repository,
 		app_config:                       app_config,
 		publicKey:                        publicKey,
@@ -70,33 +74,56 @@ func (s *Service) ListVerifiableCredentials(ctx context.Context) ([]models.Verif
 }
 
 func (s *Service) SignVerifiableCredential(ctx context.Context, contractId string, executionId string) (*models.VerifiableCredential, error) {
-	// Fetch all Events linked with contractId and executionId
-	events, err := s.event_repository.ListEvents(ctx, contractId, executionId)
+	// Fetch saved Contract linked with contractId
+	negotiationContract, err := s.negotiationcontracts_repository.GetNegotiationContract(ctx, contractId)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(events) == 0 {
-		return nil, errors.New("no events registered")
+	// Fetch all ComplianceLogs linked with contractId and executionId
+	compliancelogs, err := s.compliancelogs_repository.ListComplianceLogs(ctx, contractId, executionId)
+	if err != nil {
+		return nil, err
 	}
 
-	// Map []event to verifiable.Subject
+	if len(compliancelogs) == 0 {
+		return nil, errors.New("no compliancelogs registered")
+	}
+
+	// Construct credential subject
 	subjects := []verifiable.Subject{}
-	var monitoringEvents []map[string]interface{}
-	for _, event := range events {
-		monitoringEvents = append(monitoringEvents, map[string]interface{}{
-			"source":    event.Source,
-			"timestamp": event.Timestamp,
-			"metric":    event.Metric,
-			"value":     event.Value,
-			"log":       event.Log,
+	var complianceAudit []map[string]interface{}
+	for _, compliancelog := range compliancelogs {
+
+		var complianceLogsValues []compliancelogs_ports.ComplianceAuditLog
+
+		complianceLogsValue, err := compliancelog.ComplianceLogs.Value()
+		if err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal(complianceLogsValue.([]byte), &complianceLogsValues); err != nil {
+			return nil, err
+		}
+
+		complianceAudit = append(complianceAudit, map[string]interface{}{
+			"monitoringEvent": map[string]interface{}{
+				"source":    compliancelog.Source,
+				"timestamp": compliancelog.Timestamp,
+				"metric":    compliancelog.Metric,
+				"value":     compliancelog.Value,
+				"log":       compliancelog.Log,
+			},
+			"complianceLogs": complianceLogsValues,
 		})
 	}
+
+	negotiationContractEntity, _ := modelToEntity(negotiationContract)
 	subjects = append(subjects, verifiable.Subject{
-		ID: events[0].ContractID,
+		ID: compliancelogs[0].ContractID,
 		CustomFields: verifiable.CustomFields{
-			"executionId":      events[0].ExecutionID,
-			"monitoringEvents": monitoringEvents,
+			"executionId":     compliancelogs[0].ExecutionID,
+			"contract":        negotiationContractEntity,
+			"complianceAudit": complianceAudit,
 		},
 	})
 

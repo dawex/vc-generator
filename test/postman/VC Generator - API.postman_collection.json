@@ -1,0 +1,1384 @@
+{
+	"info": {
+		"_postman_id": "fac09ca4-57a5-46c7-ae40-d686079925ac",
+		"name": "VC Generator - API",
+		"description": "VC Generator - API\n\nWe use the API Specification to describe each endpoint. The API self-description also contains type information to help you error-check your requests.\n\n# Authentication\n\nBearer token - Auth is NOT PROVIDED here - could be a bearer token in production env. \n\n<!-- ReDoc-Inject: <security-definitions> -->\n\nContact Support:\n Name: Developers Contact\n Email: developers@example.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8928857"
+	},
+	"item": [
+		{
+			"name": "healthcheck",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/healthcheck",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"healthcheck"
+							]
+						},
+						"description": "The healthcheck endpoint retrieve 200 code if service is up."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/healthcheck",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"healthcheck"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/healthcheck",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"healthcheck"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/healthcheck",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"healthcheck"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "negotiation-contracts",
+			"item": [
+				{
+					"name": "List Negotiation Contracts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/negotiation-contracts?contractId=contractId123gt",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"negotiation-contracts"
+							],
+							"query": [
+								{
+									"key": "contractId",
+									"value": "contractId123gt",
+									"description": "(Required) A unique identifier for the contract."
+								}
+							]
+						},
+						"description": "List Negociation Contracts associated to the unique contractId."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts?contractId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"type\": \"<string>\",\n    \"consumer_id\": \"<string>\",\n    \"producer_id\": \"<string>\",\n    \"data_processing_workflow_object\": \"<string>\",\n    \"natural_language_document\": \"<string>\",\n    \"resource_description_object\": {},\n    \"odrl_policy\": {},\n    \"id\": \"<string>\",\n    \"title\": \"<string>\",\n    \"negotiation_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"consumer_id\": \"<string>\",\n    \"producer_id\": \"<string>\",\n    \"data_processing_workflow_object\": \"<string>\",\n    \"natural_language_document\": \"<string>\",\n    \"resource_description_object\": {},\n    \"odrl_policy\": {},\n    \"id\": \"<string>\",\n    \"title\": \"<string>\",\n    \"negotiation_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n]"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts?contractId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts?contractId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Save Negotiation Contract",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"Contract Type\",\n    \"consumer_id\": \"Consumer ID\",\n    \"producer_id\": \"Producer ID\",\n    \"data_processing_workflow_object\": \"Object:6158f68sdf165ds615fs\",\n    \"natural_language_document\": \"EN\",\n    \"resource_description_object\": {\n        \"test\": \"test\"\n    },\n    \"odrl_policy\": {\n        \"@type\": \"odrl:Offer\",\n        \"odrl:permission\": [\n            {\n                \"odrl:action\": \"odrl:derive\",\n                \"odrl:constraint\": [\n                    {\n                        \"odrl:rightOperand\": \"xls\",\n                        \"odrl:leftOperand\": \"odrl:fileFormat\",\n                        \"odrl:operator\": \"odrl:eq\"\n                    }\n                ]\n            }\n        ]\n    },\n    \"id\": \"contractId123gt\",\n    \"title\": \"Contract Tiltle\",\n    \"negotiation_id\": \"Negotiation ID\",\n    \"created_at\": \"2025-03-30T20:29:45Z\",\n    \"updated_at\": \"2025-04-03T22:29:45Z\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/negotiation-contracts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"negotiation-contracts"
+							]
+						},
+						"description": "Save incoming negotiation contract from 'Upcast Negotiation Plugin'."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"<string>\",\n  \"consumer_id\": \"<string>\",\n  \"producer_id\": \"<string>\",\n  \"data_processing_workflow_object\": \"<string>\",\n  \"natural_language_document\": \"<string>\",\n  \"resource_description_object\": {},\n  \"odrl_policy\": {},\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"negotiation_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"type\": \"<string>\",\n  \"consumer_id\": \"<string>\",\n  \"producer_id\": \"<string>\",\n  \"data_processing_workflow_object\": \"<string>\",\n  \"natural_language_document\": \"<string>\",\n  \"resource_description_object\": {},\n  \"odrl_policy\": {},\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"negotiation_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"<string>\",\n  \"consumer_id\": \"<string>\",\n  \"producer_id\": \"<string>\",\n  \"data_processing_workflow_object\": \"<string>\",\n  \"natural_language_document\": \"<string>\",\n  \"resource_description_object\": {},\n  \"odrl_policy\": {},\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"negotiation_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"<string>\",\n  \"consumer_id\": \"<string>\",\n  \"producer_id\": \"<string>\",\n  \"data_processing_workflow_object\": \"<string>\",\n  \"natural_language_document\": \"<string>\",\n  \"resource_description_object\": {},\n  \"odrl_policy\": {},\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"negotiation_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/negotiation-contracts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"negotiation-contracts"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "compliance-logs",
+			"item": [
+				{
+					"name": "List Compliance Logs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/compliance-logs?contractId=contractId123gt&executionId=executionId123gt",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"compliance-logs"
+							],
+							"query": [
+								{
+									"key": "contractId",
+									"value": "contractId123gt",
+									"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+								},
+								{
+									"key": "executionId",
+									"value": "executionId123gt",
+									"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+								}
+							]
+						},
+						"description": "List Events associated to the couple contractId and executionId."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/events?contractId=<string>&executionId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+										},
+										{
+											"key": "executionId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"contractId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"executionId\": \"<string>\",\n    \"id\": \"gptgptgptgptgptgptgptgptgptgptgptgpt\",\n    \"monitoringEvent\": {\n      \"source\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"metric\": \"action-start\",\n      \"value\": \"<string>\",\n      \"log\": \"<string>\",\n      \"result\": {}\n    }\n  },\n  {\n    \"contractId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"executionId\": \"<string>\",\n    \"id\": \"f2crwc5V2f2crwc5V2f2crwc5V2f2crwc5V2\",\n    \"monitoringEvent\": {\n      \"source\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"metric\": \"action-stop\",\n      \"value\": \"<string>\",\n      \"log\": \"<string>\",\n      \"result\": {}\n    }\n  }\n]"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/events?contractId=<string>&executionId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+										},
+										{
+											"key": "executionId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/events?contractId=<string>&executionId=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+										},
+										{
+											"key": "executionId",
+											"value": "<string>",
+											"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Save Compliance Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contractId\": \"contractId123gt\",\n    \"executionId\": \"executionId123gt\",\n    \"monitoringEvent\": {\n        \"log\": \"LOG: start of reader:read-data\",\n        \"metric\": \"action-start\",\n        \"params\": [\n            \"datafile\"\n        ],\n        \"result\": null,\n        \"source\": \"reader\",\n        \"value\": \"read-data\",\n        \"groups\": \"adm\",\n        \"timestamp\": \"2025-03-30T20:29:45Z\"\n    },\n    \"complianceLogs\": [\n        {\n            \"log_lvl\": \"ALERT\",\n            \"log_msg\": \"rule violation\",\n            \"rule_num\": 1,\n            \"rule_context\": \"*\",\n            \"rule_expr\": \"$name in {'a', 'b'}\"\n        },\n        {\n            \"log_lvl\": \"INFO\",\n            \"log_msg\": \"rule match\",\n            \"rule_num\": 5,\n            \"rule_context\": \"*\",\n            \"rule_expr\": \"'adm' in $groups\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/compliance-logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"compliance-logs"
+							]
+						},
+						"description": "Save incoming event from Dataset Execution."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"contractId\": \"<string>\",\n  \"executionId\": \"<string>\",\n  \"monitoringEvent\": {\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"metric\": \"action-stop\",\n    \"value\": \"<string>\",\n    \"log\": \"<string>\",\n    \"result\": {}\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/events",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"contractId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"executionId\": \"<string>\",\n  \"id\": \"bkyRpbkyRpbkyRpbkyRpbkyRpbkyRpbkyRpb\",\n  \"monitoringEvent\": {\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"metric\": \"action-start\",\n    \"value\": \"<string>\",\n    \"log\": \"<string>\",\n    \"result\": {}\n  }\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"contractId\": \"<string>\",\n  \"executionId\": \"<string>\",\n  \"monitoringEvent\": {\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"metric\": \"action-stop\",\n    \"value\": \"<string>\",\n    \"log\": \"<string>\",\n    \"result\": {}\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/events",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"contractId\": \"<string>\",\n  \"executionId\": \"<string>\",\n  \"monitoringEvent\": {\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\",\n    \"metric\": \"action-stop\",\n    \"value\": \"<string>\",\n    \"log\": \"<string>\",\n    \"result\": {}\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/events",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "verifiable-credential",
+			"item": [
+				{
+					"name": "publicKey",
+					"item": [
+						{
+							"name": "Get Public Key",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/verifiable-credential/publicKey",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"verifiable-credential",
+										"publicKey"
+									]
+								},
+								"description": "Get public key for any VC validation process."
+							},
+							"response": [
+								{
+									"name": "Successful operation.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/publicKey",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"publicKey"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"type\": \"Ed25519\",\n  \"key\": \"<string>\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/publicKey",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"publicKey"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/publicKey",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"publicKey"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "_sign",
+					"item": [
+						{
+							"name": "Sign Verifiable Credential for Dataset Execution",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/verifiable-credential/_sign?contractId=contractId123gt&executionId=executionId123gt",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"verifiable-credential",
+										"_sign"
+									],
+									"query": [
+										{
+											"key": "contractId",
+											"value": "contractId123gt",
+											"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+										},
+										{
+											"key": "executionId",
+											"value": "executionId123gt",
+											"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+										}
+									]
+								},
+								"description": "Sign one Verifiable Credential containing all saved events base on dataset execution identified with contractId and executionId."
+							},
+							"response": [
+								{
+									"name": "Successful operation.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/_sign?contractId=<string>&executionId=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"_sign"
+											],
+											"query": [
+												{
+													"key": "contractId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+												},
+												{
+													"key": "executionId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"@context\": [\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"type\": [\n    \"VerifiableCredential\"\n  ],\n  \"credentialSubject\": {\n    \"id\": \"<string>\",\n    \"executionId\": \"<string>\",\n    \"monitoringEvents\": [\n      {\n        \"source\": \"<string>\",\n        \"timestamp\": \"<dateTime>\",\n        \"metric\": \"action-start\",\n        \"value\": \"<string>\",\n        \"log\": \"<string>\",\n        \"result\": {}\n      },\n      {\n        \"source\": \"<string>\",\n        \"timestamp\": \"<dateTime>\",\n        \"metric\": \"action-start\",\n        \"value\": \"<string>\",\n        \"log\": \"<string>\",\n        \"result\": {}\n      }\n    ]\n  },\n  \"issuer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"issuanceDate\": \"<dateTime>\",\n  \"proof\": {\n    \"created\": \"<dateTime>\",\n    \"jws\": \"<string>\",\n    \"proofPurpose\": \"assertionMethod\",\n    \"type\": \"Ed25519Signature2018\",\n    \"verificationMethod\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/_sign?contractId=<string>&executionId=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"_sign"
+											],
+											"query": [
+												{
+													"key": "contractId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+												},
+												{
+													"key": "executionId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/verifiable-credential/_sign?contractId=<string>&executionId=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"verifiable-credential",
+												"_sign"
+											],
+											"query": [
+												{
+													"key": "contractId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the contract. The contract with contract-id identifies the producer, the consumer, the dataset and the workflow that will be executed on it."
+												},
+												{
+													"key": "executionId",
+													"value": "<string>",
+													"description": "(Required) A unique identifier for the execution. Each dataset consumer assigns a unique id to each such execution for a given contract."
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "List Signed Verifiable Credentials",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/verifiable-credential",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"verifiable-credential"
+							]
+						},
+						"description": "List all signed Verifiable Credentials."
+					},
+					"response": [
+						{
+							"name": "Successful operation.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/verifiable-credential",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"verifiable-credential"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"@context\": [\n      \"<string>\"\n    ],\n    \"id\": \"<string>\",\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": {\n      \"id\": \"<string>\",\n      \"executionId\": \"<string>\",\n      \"monitoringEvents\": [\n        {\n          \"source\": \"<string>\",\n          \"timestamp\": \"<dateTime>\",\n          \"metric\": \"action-start\",\n          \"value\": \"<string>\",\n          \"log\": \"<string>\",\n          \"result\": {}\n        },\n        {\n          \"source\": \"<string>\",\n          \"timestamp\": \"<dateTime>\",\n          \"metric\": \"action-start\",\n          \"value\": \"<string>\",\n          \"log\": \"<string>\",\n          \"result\": {}\n        }\n      ]\n    },\n    \"issuer\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"issuanceDate\": \"<dateTime>\",\n    \"proof\": {\n      \"created\": \"<dateTime>\",\n      \"jws\": \"<string>\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"type\": \"Ed25519Signature2018\",\n      \"verificationMethod\": \"<string>\"\n    }\n  },\n  {\n    \"@context\": [\n      \"<string>\"\n    ],\n    \"id\": \"<string>\",\n    \"type\": [\n      \"VerifiableCredential\"\n    ],\n    \"credentialSubject\": {\n      \"id\": \"<string>\",\n      \"executionId\": \"<string>\",\n      \"monitoringEvents\": [\n        {\n          \"source\": \"<string>\",\n          \"timestamp\": \"<dateTime>\",\n          \"metric\": \"action-stop\",\n          \"value\": \"<string>\",\n          \"log\": \"<string>\",\n          \"result\": {}\n        },\n        {\n          \"source\": \"<string>\",\n          \"timestamp\": \"<dateTime>\",\n          \"metric\": \"action-stop\",\n          \"value\": \"<string>\",\n          \"log\": \"<string>\",\n          \"result\": {}\n        }\n      ]\n    },\n    \"issuer\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"issuanceDate\": \"<dateTime>\",\n    \"proof\": {\n      \"created\": \"<dateTime>\",\n      \"jws\": \"<string>\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"type\": \"Ed25519Signature2018\",\n      \"verificationMethod\": \"<string>\"\n    }\n  }\n]"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/verifiable-credential",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"verifiable-credential"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/verifiable-credential",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"verifiable-credential"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorMessage\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8090/v1"
+		}
+	]
+}

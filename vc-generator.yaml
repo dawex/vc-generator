@@ -115,10 +115,8 @@ paths:
       tags:
         - Negotiation-Contracts
       summary: List Negotiation Contracts
-      description: List Negociation Contracts associated to the unique contractId.
+      description: List All Negociation Contracts.
       operationId: listNegotiationContracts
-      parameters:
-        - $ref: '#/components/parameters/query_contractId'
       responses:
         '200':
           description: Successful operation.
@@ -136,15 +134,15 @@ paths:
         - lang: Shell + Curl
           source: |-
             curl --request GET \
-              --url 'https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141' \
+              --url https://example-test.com/v1/negotiation-contracts \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
         - lang: Java + Unirest
           source: |-
-            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141")
+            HttpResponse<String> response = Unirest.get("https://example-test.com/v1/negotiation-contracts")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/negotiation-contracts\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -154,10 +152,6 @@ paths:
 
             $request->setRequestUrl('https://example-test.com/v1/negotiation-contracts');
             $request->setRequestMethod('GET');
-            $request->setQuery(new http\QueryString([
-              'contractId' => 'uktdqs4661qsdqs664141'
-            ]));
-
             $request->setHeaders([
               'Authorization' => 'Bearer REPLACE_BEARER_TOKEN'
             ]);
@@ -174,7 +168,7 @@ paths:
 
             headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
 
-            conn.request("GET", "/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141", headers=headers)
+            conn.request("GET", "/v1/negotiation-contracts", headers=headers)
 
             res = conn.getresponse()
             data = res.read()
@@ -188,7 +182,7 @@ paths:
               "method": "GET",
               "hostname": "example-test.com",
               "port": null,
-              "path": "/v1/negotiation-contracts?contractId=uktdqs4661qsdqs664141",
+              "path": "/v1/negotiation-contracts",
               "headers": {
                 "Authorization": "Bearer REPLACE_BEARER_TOKEN"
               }
@@ -463,16 +457,16 @@ paths:
               --url https://example-test.com/v1/compliance-logs \
               --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
               --header 'content-type: application/json' \
-              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","group":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"*","rule_expr":"'\''adm'\'' in $groups"}]}'
+              --data '{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","groups":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"*","rule_expr":"'\''adm'\'' in $groups"}]}'
         - lang: Java + Unirest
           source: |-
             HttpResponse<String> response = Unirest.post("https://example-test.com/v1/compliance-logs")
               .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
               .header("content-type", "application/json")
-              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"group\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"*\",\"rule_expr\":\"'adm' in $groups\"}]}")
+              .body("{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"groups\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"*\",\"rule_expr\":\"'adm' in $groups\"}]}")
               .asString();
         - lang: Go + Native
-          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\",\\\"params\\\":[\\\"string\\\"],\\\"result\\\":\\\"string\\\",\\\"group\\\":\\\"string\\\"},\\\"complianceLogs\\\":[{\\\"log_lvl\\\":\\\"ALERT\\\",\\\"log_msg\\\":\\\"rule violation\\\",\\\"rule_num\\\":\\\"1\\\",\\\"rule_context\\\":\\\"*\\\",\\\"rule_expr\\\":\\\"'adm' in $groups\\\"}]}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://example-test.com/v1/compliance-logs\"\n\n\tpayload := strings.NewReader(\"{\\\"contractId\\\":\\\"gfjfgd45555sd5s5s5s5s\\\",\\\"executionId\\\":\\\"uktdqs4661qsdqs664141\\\",\\\"monitoringEvent\\\":{\\\"source\\\":\\\"transfer-plugin\\\",\\\"timestamp\\\":\\\"2025-02-26T13:28:09Z\\\",\\\"metric\\\":\\\"action-start\\\",\\\"value\\\":\\\"calculation of statistics\\\",\\\"log\\\":\\\"Root WebApplicationContext: initialization completed in 2758 ms\\\",\\\"params\\\":[\\\"string\\\"],\\\"result\\\":\\\"string\\\",\\\"groups\\\":\\\"string\\\"},\\\"complianceLogs\\\":[{\\\"log_lvl\\\":\\\"ALERT\\\",\\\"log_msg\\\":\\\"rule violation\\\",\\\"rule_num\\\":\\\"1\\\",\\\"rule_context\\\":\\\"*\\\",\\\"rule_expr\\\":\\\"'adm' in $groups\\\"}]}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
         - lang: Php + Http2
           source: |-
             <?php
@@ -481,7 +475,7 @@ paths:
             $request = new http\Client\Request;
 
             $body = new http\Message\Body;
-            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","group":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"*","rule_expr":"'adm' in $groups"}]}');
+            $body->append('{"contractId":"gfjfgd45555sd5s5s5s5s","executionId":"uktdqs4661qsdqs664141","monitoringEvent":{"source":"transfer-plugin","timestamp":"2025-02-26T13:28:09Z","metric":"action-start","value":"calculation of statistics","log":"Root WebApplicationContext: initialization completed in 2758 ms","params":["string"],"result":"string","groups":"string"},"complianceLogs":[{"log_lvl":"ALERT","log_msg":"rule violation","rule_num":"1","rule_context":"*","rule_expr":"'adm' in $groups"}]}');
 
             $request->setRequestUrl('https://example-test.com/v1/compliance-logs');
             $request->setRequestMethod('POST');
@@ -502,7 +496,7 @@ paths:
 
             conn = http.client.HTTPSConnection("example-test.com")
 
-            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"group\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"*\",\"rule_expr\":\"'adm' in $groups\"}]}"
+            payload = "{\"contractId\":\"gfjfgd45555sd5s5s5s5s\",\"executionId\":\"uktdqs4661qsdqs664141\",\"monitoringEvent\":{\"source\":\"transfer-plugin\",\"timestamp\":\"2025-02-26T13:28:09Z\",\"metric\":\"action-start\",\"value\":\"calculation of statistics\",\"log\":\"Root WebApplicationContext: initialization completed in 2758 ms\",\"params\":[\"string\"],\"result\":\"string\",\"groups\":\"string\"},\"complianceLogs\":[{\"log_lvl\":\"ALERT\",\"log_msg\":\"rule violation\",\"rule_num\":\"1\",\"rule_context\":\"*\",\"rule_expr\":\"'adm' in $groups\"}]}"
 
             headers = {
                 'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -554,7 +548,7 @@ paths:
                 log: 'Root WebApplicationContext: initialization completed in 2758 ms',
                 params: ['string'],
                 result: 'string',
-                group: 'string'
+                groups: 'string'
               },
               complianceLogs: [
                 {
@@ -948,7 +942,7 @@ components:
         - metric
         - value
         - log
-        - group
+        - groups
       properties:
         source:
           type: string
@@ -991,9 +985,9 @@ components:
         result:
           type: string
           description: Result of the monitored metric.
-        group:
+        groups:
           type: string
-          description: Group of the monitored metric.
+          description: Groups of the monitored metric.
     complianceAuditLog:
       type: object
       description: Compliance Audit Log.
@@ -1112,7 +1106,8 @@ components:
       required:
         - id
         - executionId
-        - monitoringEvents
+        - contract
+        - complianceAudit
       properties:
         id:
           type: string
